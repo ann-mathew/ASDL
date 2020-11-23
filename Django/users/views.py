@@ -1,35 +1,44 @@
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
+from .serializers import UserSerializer, LoginSerializer
 from users.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 
-# Create your views here.
 
-@api_view(['POST'])  
-def user_register(request):
-        serializer = UserSerializer(data=request.data)
+from reservation.utils import ApiErrorsMixin
+
+
+class UserRegister(ApiErrorsMixin, APIView):
+    serializer_class = UserSerializer
+
+    def post(self, request):
+
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.data
             user['password'] = make_password(user['password'])
-            user = User.objects.create(username=user['username'], password=user['password'])
-            if user:
+            userobj = User.objects.create(**user)
+            if userobj:
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def user_login(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-    if username is None or password is None:
-        return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
-    user = authenticate(username=username, password=password)
-    if not user:
-        return Response({'error': 'Invalid Credentials'}, status=status.HTTP_404_NOT_FOUND)
-    token, created = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key} , status=status.HTTP_200_OK)
+class UserLogin(ApiErrorsMixin, APIView):
+    serializer_class = LoginSerializer
+
+
+    def post(self, request):
+        cred = self.serializer_class(data=request.data)
+        if not cred.is_valid():
+            return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
+        user = authenticate(**cred.data)
+        if not user:
+            return Response({'error': 'Invalid Credentials'}, status=status.HTTP_404_NOT_FOUND)
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key} , status=status.HTTP_200_OK)

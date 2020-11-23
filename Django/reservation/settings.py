@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'users',
+    'booking',
+    'staff'
 ]
 
 MIDDLEWARE = [
@@ -77,9 +79,10 @@ REST_FRAMEWORK = {
   # 'DEFAULT_PERMISSION_CLASSES': (
   #      'rest_framework.permissions.IsAuthenticated',
   #  ),
-  'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
       'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 WSGI_APPLICATION = 'reservation.wsgi.application'

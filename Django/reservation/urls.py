@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from users.views import user_register, user_login
+from django.urls import path, include
+from users.views import UserRegister, UserLogin
+
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
+    path('', include_docs_urls(title='Finish Factory Backend')),
     path('admin/', admin.site.urls),
-    path('register/', user_register),
-    path('login/', user_login),
+    path('user/', include('users.urls')),
 ]
 
 
