@@ -1,0 +1,35 @@
+#logincard{
+width: 350px;
+border-radius: 25px;
+margin:120px auto;
+padding-bottom: 10px;
+box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.2);
+}
+#email{
+    border-radius:30px;
+    background-color: #ebf0fc;
+    border:none;
+    color: #000000;
+
+}
+#password{
+    border-radius:30px;
+    background-color: #ebf0fc;
+    border:none;
+    color: #000000;
+
+}
+#password:focus {
+    box-shadow: none;
+}
+
+#username:focus{
+    box-shadow: none;
+}
+
+#button{
+    border-radius: 20px;
+    margin:  auto;
+}
+
+
