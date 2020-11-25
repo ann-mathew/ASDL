@@ -1,3 +1,8 @@
+.register-content{
+    height: 100vh;
+    background-color: rgb(125, 207, 228);
+    overflow-x: hidden !important;
+}
 #registercard{
     width: 350px;
     border-radius: 25px;
@@ -17,6 +22,7 @@
     }
     
 #button{
+    outline: none;
     border-radius: 20px;
     margin:  auto;
     }

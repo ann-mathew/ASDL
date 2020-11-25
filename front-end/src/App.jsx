@@ -12,7 +12,7 @@ export class App extends Component {
     return (
       <BrowserRouter>
           <Switch>
-                <Route exact path="/" component={Login} />
+                <Route exact path="/Login" component={Login} />
                 <Route path="/Dashboard" component={ Dashboard } />  
                 <Route exact path="/Register" component={Register} />                
               

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser , faLock} from "@fortawesome/free-solid-svg-icons";
 import "../Css/Login.css"
 
-
-
-export class Login extends Component {
+class Login extends Component {
     constructor(){
         super()
         this.state={
@@ -32,30 +32,34 @@ export class Login extends Component {
        .then( data =>{ console.log(data) })
         .catch( error => console.error(error))
 
-        // this.props.history.push('/Dashboard');  
+        this.props.history.push('/Dashboard');  
     }
-    render() {
+    
+    render(){
         return (
-            <div id="logincard" className="card">
-                <div className="card-body">
-                    <h2 className="text-center">Login </h2><br/>
-                    
-                    <form autoComplete="off">
-                        
-                        <div className="form-group">
-                            <input id="email" className="form-control" type="text" value={this.state.email} name="email" placeholder="Enter Email" onChange={this.handleChange}/>
+                <div className="login">
+                    <div className="login-box">
+                        <h2>Login</h2>
+                        <form autoComplete="off">
+
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faUser} />
+                            <input className="email" name="email" type="text" value={this.state.email} onChange={this.handleChange}  placeholder="Email" required/>
                         </div>
                         
-                        <div className="form-group">
-                            <input id="password" className="form-control" type="password" value={this.state.password} name="password" placeholder="Enter Password" onChange={this.handleChange}/><br/>
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faLock} />
+                            <input className="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}  placeholder="Password" required/>
                         </div>
-                        
-                        <button  type="submit" id="button" className="btn btn-primary deep-purple btn-block" onClick={this.handleSubmit}>Submit</button><br/>
-                        <p style={{textAlign: "center"}}>Don't have an account? <Link to="/Register">Register</Link> </p>
-            
-                    </form>
+                            
+                        <input className="submit" type="submit" onClick={this.handleSubmit} value="Login"/><br/>
+                        </form>
+                        <p style={{textAlign: "center"}}>Don't have an account? <Link  style={{color:"white"}} to="/Register">Register</Link> </p>
+
+
+                    </div>
                 </div>
-            </div>
+
         )
     }
 }

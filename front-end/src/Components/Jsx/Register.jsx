@@ -23,12 +23,13 @@ export class Register extends Component {
     async handleSubmit(event){
        event.preventDefault();
           
-        // this.props.history.push('/Dashboard');  
+        this.props.history.push('/Dashboard');  
     }
    
       
     render() {
         return (
+            <div className="register-content">
                 <div id="registercard" className="card">
                     <div className="card-body">
                         <h2 className="text-center">Create Account</h2><br/>
@@ -56,6 +57,7 @@ export class Register extends Component {
                         </form>
                     </div>
                 </div>
+            </div>
         )
     }
 }

@@ -1,0 +1,34 @@
+#dashnav{ /*Dashboard nav */
+    padding: 10px;
+    height:55px;
+    padding-top: 14px;
+    background-color: rgba(2, 2, 2, 0.884);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.144);
+    margin-bottom: 10px;
+
+}
+#dashnav> h4{
+    float: right;
+    color: white;
+}
+#navbutton{  /*Menu button */
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: transparent;
+    border-radius: 3px;
+    font-size: 22px;
+}
+
+#logout{  /*Logout button */
+    float: right;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding-left: 20px;
+    font-size: 28px;
+
+}
