@@ -20,7 +20,7 @@ class DashNav extends Component {
     render() {
         return (
             <div id="dashnav">
-                <h4>  Welcome User <button id="logout" onClick={ this.handleLogout} ><FontAwesomeIcon icon={faSignOutAlt} />  </button> </h4>    
+              <button id="logout" onClick={ this.handleLogout} ><FontAwesomeIcon icon={faSignOutAlt} />  </button>    
             </div>
             
         )
