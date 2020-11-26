@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-#Create your models here.
+Roles = (("USER", "User"), ("ROC", "ROC"), ("ADMIN", "Admin"))
 
 class User(AbstractUser):
     username = models.CharField(max_length=32, primary_key=True)
@@ -13,6 +13,8 @@ class User(AbstractUser):
     email = models.CharField(max_length=100, null=True)
     phoneNo = models.CharField(max_length=100, null=True)
     age = models.IntegerField(null=True)
+
+    role = models.CharField(max_length=20, choices = Roles, default="USER")
 
 
     class Meta:
