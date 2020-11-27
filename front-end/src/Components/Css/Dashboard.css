@@ -3,7 +3,7 @@
     height:65px;
     background-color: #151515;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.233);
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 
 }
 
@@ -35,3 +35,4 @@
 #main-content{
     margin-left: 14rem;
 }
+

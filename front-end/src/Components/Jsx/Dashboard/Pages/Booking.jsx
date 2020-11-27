@@ -49,10 +49,10 @@ class Booking extends Component {
     
     render() {
         return (
-            <div className="booking">
+            <div  id="main-content" className="booking">
                 
                 <div className="booking-form">
-                    <h2>Book Tickets</h2>
+                    <h3>Book Tickets</h3>
                     
                     <form autoComplete="off">
                         
@@ -71,10 +71,9 @@ class Booking extends Component {
                             <input classname = "dateoftravel" name="dateoftravel" type="date" value={this.state.dateoftravel} onChange={this.handleChange} placeholder="Travel Date"  required/>
                         </div>
 
-                        <div className="textbox">
+                        <div  className="textbox">
                             
-                            <div>
-                                <select defaultValue={this.state.classoftravel} onChange={this.handleChange}>
+                                <select classnName="selectclass" defaultValue={this.state.classoftravel} onChange={this.handleChange}>
                                     <option value="" disabled className="text-hide">Select Class</option>
                                     <option value="Sleeper Class">Sleeper Class</option>
                                     <option value="Third AC">Third AC</option>
@@ -84,7 +83,6 @@ class Booking extends Component {
                                     <option value="AC Chair Car">AC Chair Car</option>
                                     <option value="First Class">First Class</option>
                                 </select>
-                            </div>
                             
                         </div>
 
