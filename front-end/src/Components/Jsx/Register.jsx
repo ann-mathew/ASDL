@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser , faLock ,faPhoneAlt , faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import '../Css/Register.css'
 
 export class Register extends Component {
@@ -29,35 +31,40 @@ export class Register extends Component {
       
     render() {
         return (
-            <div className="register-content">
-                <div id="registercard" className="card">
-                    <div className="card-body">
-                        <h2 className="text-center">Create Account</h2><br/>
+
+            <div className="register">
+                    <div className="register-box">
+                        <h2>Create Account</h2>
+                        <form autoComplete="off">
+
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faUser} />
+                            <input className="name" name="name" type="text" value={this.state.name} onChange={this.handleChange}  placeholder="Enter Full Name" required/>
+                        </div>
                         
-                        <form autocomplete="off">
-                            
-                            <div className="form-group">
-                                <input id="name" className="form-control" type="text" value={this.state.name} name="name" placeholder="Enter Full Name" onChange={this.handleChange}/>
-                            </div>
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faEnvelope} />
+                            <input className="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}  placeholder="Enter Email" required/>
+                        </div>
 
-                            <div className="form-group">
-                                <input id="email" className="form-control" type="text" value={this.state.email} name="email" placeholder="Enter Email" onChange={this.handleChange}/>
-                            </div>
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faPhoneAlt} />
+                            <input className="phone" name="phone" type="text" value={this.state.phone} onChange={this.handleChange}  placeholder="Enter Phone Number" required/>
+                        </div>
 
-                            <div className="form-group">
-                                <input id="phone" className="form-control" type="text" value={this.state.phone} name="phone" placeholder="Enter Phone Number" onChange={this.handleChange}/>
-                            </div>
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faLock} />
+                            <input className="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}  placeholder="Enter Password" required/>
+                        </div>
                             
-                            <div className="form-group">
-                                <input id="password" className="form-control" type="password" value={this.state.password} name="password" placeholder="Enter Password" onChange={this.handleChange}/><br/>
-                            </div>
-                            
-                            <button  type="submit" id="button" className="btn btn-primary deep-purple btn-block" onClick={this.handleSubmit}>Submit</button><br/>
-                
+                        <input className="submit" type="submit" onClick={this.handleSubmit} value="Register"/><br/>
                         </form>
+                        
+
+
                     </div>
                 </div>
-            </div>
+            
         )
     }
 }
