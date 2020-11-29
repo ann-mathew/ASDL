@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser , faLock ,faPhoneAlt , faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faUser , faLock ,faPhoneAlt , faEnvelope, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import '../Css/Register.css'
 
 export class Register extends Component {
@@ -10,7 +10,8 @@ export class Register extends Component {
           name:"",
           email:"",
           phone:"",
-          password: ""
+          password: "",
+          dob: ""
         }
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
@@ -41,6 +42,12 @@ export class Register extends Component {
                             <FontAwesomeIcon icon={faUser} />
                             <input className="name" name="name" type="text" value={this.state.name} onChange={this.handleChange}  placeholder="Enter Full Name" required/>
                         </div>
+
+
+                        <div className="textbox">
+                            <FontAwesomeIcon icon={faCalendarAlt} />
+                            <input className="dob" name="dob" type="date" value={this.state.dob} onChange={this.handleChange}  placeholder="Date of Birth" required/>
+                        </div>
                         
                         <div className="textbox">
                             <FontAwesomeIcon icon={faEnvelope} />
@@ -56,6 +63,7 @@ export class Register extends Component {
                             <FontAwesomeIcon icon={faLock} />
                             <input className="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}  placeholder="Enter Password" required/>
                         </div>
+
                             
                         <input className="submit" type="submit" onClick={this.handleSubmit} value="Register"/><br/>
                         </form>
