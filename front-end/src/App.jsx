@@ -13,7 +13,7 @@ export class App extends Component {
   
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter >
           <Switch>
                 <Route exact path="/Login" component={Login} />
                 <Route path="/Dashboard" component={ Dashboard } />  

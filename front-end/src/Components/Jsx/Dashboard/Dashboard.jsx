@@ -16,7 +16,7 @@ class Dashboard extends Component {
                 <DashSide/>
                 <Switch>
                                 {/* different pages */}
-                   <Route  path="/Dashboard/Booking"> <Booking/> </Route> 
+                   <Route  path="/Dashboard/Booking"> <Booking history={this.props.history}/> </Route> 
                    <Route  path="/Dashboard/Account"> <Account/> </Route>
                    <Route  path="/Dashboard/Train"> <Train history={this.props.history}/> </Route>
                    <Route  path="/Dashboard"> <LandingPage/> </Route>

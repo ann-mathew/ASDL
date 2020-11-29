@@ -41,7 +41,7 @@ class Booking extends Component {
      .catch( error => console.error(error))
        
 
-        this.props.history.push('/Dashboard');  
+        this.props.history.push('/Dashboard/Train');  
     }
     
     
