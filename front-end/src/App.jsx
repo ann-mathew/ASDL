@@ -18,7 +18,6 @@ export class App extends Component {
                 <Route exact path="/Login" component={Login} />
                 <Route path="/Dashboard" component={ Dashboard } />  
                 <Route exact path="/Register" component={Register} /> 
-                <Route exact path="/Booking" component={Booking} />
                 <Route exact path="/Payment" component={Payment} />
                 
                       
