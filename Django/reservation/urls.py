@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include_docs_urls(title='Finish Factory Backend')),
     path('admin/', admin.site.urls),
     path('user/', include('users.urls')),
+    path('booking/', include('booking.urls'))
 ]
 
 

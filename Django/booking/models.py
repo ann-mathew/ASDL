@@ -38,6 +38,16 @@ for pre in range(ord('A'), ord('Z')+1):
         TICKETS_NUMBER.append((val, val))
 TICKETS_NUMBER = tuple(TICKETS_NUMBER)
 
+COACH_CLASS = Class_Choices =  [
+    ('Sleeper Class', 'Sleeper Class'),
+    ('Third AC', 'Third AC'),
+    ('First AC', 'First AC'),
+    ('Second Seating', 'Second Seating'),
+    ('AC Chair Car', 'AC Chair Car'),
+    ('First Class', 'First Class'),
+]
+
+
 class Ticket(models.Model):
 
     ticket_id = models.CharField(primary_key = True, max_length=10)
@@ -47,7 +57,7 @@ class Ticket(models.Model):
     seat_no = models.CharField(max_length=5, choices=TICKETS_NUMBER)
     book_date = models.DateTimeField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
-
+    coach_class = models.CharField(max_length=15, choices=COACH_CLASS, default ='Sleeper Class')
     boarding = models.ForeignKey(Station, related_name='boarding',  on_delete=models.CASCADE)
     destination = models.ForeignKey(Station, related_name='destination', on_delete=models.CASCADE)
 
