@@ -1,5 +1,5 @@
 .booking{
-    background-color: white;
+    background-color: whitesmoke;
 }
 
 .booking-form{
@@ -8,13 +8,13 @@
     left: 60%;
     transform: translate(-50%,-50%);    
     top: 55%;
-    color: white;
+    color: black;
     padding-top: 10px;
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom:25px;
     border-radius: 10px;
-    background-color: rgba(11, 34, 70, 0.911);
+    background-color: whitesmoke;
 }
 
 
@@ -31,6 +31,7 @@ h3{
 .textbox{
     width: 100%;
     overflow: hidden;
+    color : black;
     font-size: 20px;
     padding: 9px 0;
     margin: 5px 0;
@@ -42,7 +43,7 @@ h3{
     border: none;
     outline: none;
     background: none;
-    color: white;
+    color: black;
     font-size: 18px;
     margin: 0 10px;
 }
@@ -58,7 +59,7 @@ h3{
 
   .submit{
     width: 100%;
-    background: none;
+    background: orangered;
     border: 3px solid #ffffff;
     color: white;
     padding: 5px;
@@ -79,4 +80,9 @@ h3{
 .selectclass > option{
     outline: none;
     border: none;
+}
+
+::placeholder{
+    color : black;
+    opacity: 1;
 }
