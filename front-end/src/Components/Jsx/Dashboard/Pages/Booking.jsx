@@ -91,7 +91,7 @@ class Booking extends Component {
                             <input classname ="passengers" name="passengers" placeholder="0" type="number" min="1" max="7" value={this.state.passengers} onChange={this.handleChange}  required/>
                             
                         </div>
-                        <input className="submit" type="submit" onClick={this.handleSubmit} value="Search"/><br/>
+                        <input className="submit_booking" type="submit" onClick={this.handleSubmit} value="Search"/><br/>
                     </form>
 
 
