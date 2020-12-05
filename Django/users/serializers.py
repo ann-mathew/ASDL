@@ -25,3 +25,9 @@ class LoginSerializer(serializers.Serializer):
 
     username = serializers.CharField(max_length=None, min_length=None, allow_blank=False)
     password = serializers.CharField(allow_blank=False)
+
+   
+class BookingQuerySerializer(serializers.Serializer):
+    
+    user = serializers.CharField(max_length=32)
+    
