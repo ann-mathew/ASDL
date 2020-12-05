@@ -19,6 +19,7 @@ class Train(models.Model):
     train_id = models.CharField(primary_key = True, max_length=10)
     train_name = models.CharField(max_length=100)
     total_seats = models.IntegerField()
+    remaining_seats = models.IntegerField(default=50)
     arrival_time = models.DateTimeField()
     departure_time = models.DateTimeField()
 
