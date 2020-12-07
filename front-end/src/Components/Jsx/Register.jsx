@@ -7,7 +7,7 @@ export class Register extends Component {
     constructor(){
         super()
         this.state={
-          name:"",
+          Rname:"",
           email:"",
           phone:"",
           password: "",
@@ -25,6 +25,15 @@ export class Register extends Component {
 
     async handleSubmit(event){
        event.preventDefault();
+       console.log(this.state);
+       fetch("http://127.0.0.1:8000/user/register",{
+           method: 'POST',
+           headers : {'Content-type': 'application/json'},
+           body: JSON.stringify(this.state)
+       })       
+       .then( data =>{ console.log(data) })
+        .catch( error => console.error(error))
+
           
         this.props.history.push('/Dashboard');  
     }
@@ -40,13 +49,13 @@ export class Register extends Component {
 
                         <div className="register-textbox">
                             <FontAwesomeIcon icon={faUser} />
-                            <input className="name" name="name" type="text" value={this.state.name} onChange={this.handleChange}  placeholder="Enter Full Name" required/>
+                            <input className="Rname" name="Rname" type="text" value={this.state.Rname} onChange={this.handleChange}  placeholder="Enter Full Name" required/>
                         </div>
 
 
                         <div className="register-textbox">
                             <FontAwesomeIcon icon={faCalendarAlt} />
-                            <input className="dob" name="dob" type="date" value={this.state.dob} onChange={this.handleChange}  placeholder="Date of Birth" required/>
+                            <input className="dob" name="dob" type="int" value={this.state.dob} onChange={this.handleChange}  placeholder="Enter Age" required/>
                         </div>
                         
                         <div className="register-textbox">
