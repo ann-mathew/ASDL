@@ -28,7 +28,7 @@ h3{
     padding: 13px 0;
 }
 
-.textbox{
+.booking-textbox{
     width: 100%;
     overflow: hidden;
     color : black;
@@ -39,7 +39,7 @@ h3{
 
 }
 
-.textbox input{
+.booking-textbox input{
     border: none;
     outline: none;
     background: none;
@@ -82,7 +82,3 @@ h3{
     border: none;
 }
 
-::placeholder{
-    color : black;
-    opacity: 1;
-}

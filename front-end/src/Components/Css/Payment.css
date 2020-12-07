@@ -28,7 +28,7 @@ h3{
     padding: 13px 0;
 }
 
-.textbox{
+.payment-textbox{
     width: 100%;
     overflow: hidden;
     font-size: 20px;
@@ -38,7 +38,7 @@ h3{
 
 }
 
-.textbox input{
+.payment-textbox input{
     border: none;
     outline: none;
     background: none;
@@ -47,7 +47,7 @@ h3{
     margin: 0 10px;
 }
 
-.submit{
+.payment-submit{
     width: 100%;
     background: green;
     border: 3px solid #ffffff;
@@ -60,3 +60,4 @@ h3{
     padding:12px;
     
 }
+

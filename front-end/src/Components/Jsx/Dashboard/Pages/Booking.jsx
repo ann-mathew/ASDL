@@ -56,22 +56,22 @@ class Booking extends Component {
                     
                     <form autoComplete="off">
                         
-                        <div className="textbox">
+                        <div className="booking-textbox">
                             <FontAwesomeIcon icon = {faTrain} />
                             <input classname = "boarding" name="boarding" type="text" value={this.state.boarding} onChange={this.handleChange} placeholder="From" required/>
                         </div>
 
-                        <div className="textbox">
+                        <div className="booking-textbox">
                             <FontAwesomeIcon icon = {faTrain} />
                             <input classname = "destination" name="destination" type="text" value={this.state.destination} onChange={this.handleChange} placeholder="To" required/>
                         </div>
 
-                        <div className="textbox">
+                        <div className="booking-textbox">
                             <FontAwesomeIcon icon = {faCalendarAlt} />
                             <input classname = "dateoftravel" name="dateoftravel" type="date" value={this.state.dateoftravel} onChange={this.handleChange} placeholder="Travel Date"  required/>
                         </div>
 
-                        <div  className="textbox">
+                        <div  className="booking-textbox">
                             
                                 <select classnName="selectclass" defaultValue={this.state.classoftravel} onChange={this.handleChange}>
                                     <option value="" disabled className="text-hide">Select Class</option>
@@ -86,7 +86,7 @@ class Booking extends Component {
                             
                         </div>
 
-                        <div className="textbox">
+                        <div className="booking-textbox">
                             <FontAwesomeIcon icon = {faUser} />
                             <input classname ="passengers" name="passengers" placeholder="0" type="number" min="1" max="7" value={this.state.passengers} onChange={this.handleChange}  required/>
                             

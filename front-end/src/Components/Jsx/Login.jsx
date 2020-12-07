@@ -42,17 +42,17 @@ class Login extends Component {
                         <h2>Login</h2>
                         <form autoComplete="off">
 
-                        <div className="textbox">
+                        <div className="login-textbox">
                             <FontAwesomeIcon icon={faUser} />
-                            <input className="email" name="email" type="text" value={this.state.email} onChange={this.handleChange}  placeholder="Email" required/>
+                            <input className="l-email" name="email" type="text" value={this.state.email} onChange={this.handleChange}  placeholder="Email" required/>
                         </div>
                         
-                        <div className="textbox">
+                        <div className="login-textbox">
                             <FontAwesomeIcon icon={faLock} />
-                            <input className="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}  placeholder="Password" required/>
+                            <input className="l-password" name="password" type="password" value={this.state.password} onChange={this.handleChange}  placeholder="Password" required/>
                         </div>
                             
-                        <input className="submit" type="submit" onClick={this.handleSubmit} value="Login"/><br/>
+                        <input className="login-submit" type="submit" onClick={this.handleSubmit} value="Login"/><br/>
                         </form>
                         <p style={{textAlign: "center"}}>Don't have an account? <Link  style={{color:"white"}} to="/Register">Register</Link> </p>
 

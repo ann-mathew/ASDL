@@ -31,7 +31,7 @@ h2{
     padding: 13px 0;
 }
 
-.textbox{
+.login-textbox{
     width: 100%;
     overflow: hidden;
     font-size: 20px;
@@ -39,7 +39,7 @@ h2{
     margin: 7px 0;
     border-bottom: 2px solid #ffffff;
 }
-.textbox input{
+.login-textbox input{
     border: none;
     outline: none;
     background: none;
@@ -48,7 +48,7 @@ h2{
     margin: 0 10px;
 }
 
-.submit{
+.login-submit{
     width: 100%;
     background: none;
     border: 3px solid #ffffff;
@@ -62,6 +62,6 @@ h2{
     
 }
 
-::placeholder {
-    color: rgba(255, 255, 255, 0.562);
+::placeholder{
+    color: grey;
 }

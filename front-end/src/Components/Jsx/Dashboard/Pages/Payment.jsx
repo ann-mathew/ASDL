@@ -46,27 +46,27 @@ class Payment extends Component {
                     
                     <form autoComplete="off">
                         
-                        <div className="textbox">
+                        <div className="payment-textbox">
                             <FontAwesomeIcon icon = {faUserCircle} />
-                            <input classname = "name" name="name" type="text" value={this.state.name} onChange={this.handleChange} placeholder="Cardholder Name" required/>
+                            <input classname = "p-name" name="name" type="text" value={this.state.name} onChange={this.handleChange} placeholder="Cardholder Name" required/>
                         </div>
 
-                        <div className="textbox">
+                        <div className="payment-textbox">
                             <FontAwesomeIcon icon = {faCreditCard} />
                             <input classname = "cardNumber" name="cardNumber" type="text" value={this.state.cardNumber} onChange={this.handleChange} placeholder="Card Number" required/>
                         </div>
 
-                        <div className="textbox">
+                        <div className="payment-textbox">
                             <FontAwesomeIcon icon = {faLock} />
                             <input classname = "cvv" name="cvv" type="password" value={this.state.cvv} onChange={this.handleChange} placeholder="CVV/CCV"  required/>
                         </div>
 
-                        <div className="textbox">
+                        <div className="payment-textbox">
                             <FontAwesomeIcon icon = {faCalendarMinus} />
                             <input classname ="expiry" name="expiry" placeholder="Date of Expiry" type="text" value={this.state.expiry} onChange={this.handleChange}  required/>
                             
                         </div>
-                        <input className="submit" type="submit" onClick={this.handleSubmit} value="Make Payment"/><br/>
+                        <input className="payment-submit" type="submit" onClick={this.handleSubmit} value="Make Payment"/><br/>
                     </form>
 
 
