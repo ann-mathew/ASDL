@@ -10,13 +10,14 @@ class User(AbstractUser):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     full_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100, null=True)
+    email = models.CharField(max_length=100, default = "invalid@gmail.com", unique=True)
     phoneNo = models.CharField(max_length=100, null=True)
     age = models.IntegerField(null=True)
 
     role = models.CharField(max_length=20, choices = Roles, default="USER")
 
-
+    def __str__(self):
+            return self.email
     class Meta:
         ordering=["-timestamp", "-updated"]
 
