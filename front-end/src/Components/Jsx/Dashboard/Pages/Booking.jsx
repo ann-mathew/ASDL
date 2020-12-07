@@ -31,17 +31,25 @@ class Booking extends Component {
 
     async handleSubmit(event){
        event.preventDefault();
-       console.log(this.state)
-       fetch(URL,{
+       var form={
+            source:this.state.boarding,
+            destination:this.state.destination,
+            time:this.state.dateoftravel,
+            coach_class:this.state.classoftravel,
+            seats:this.state.passengers
+       }
+       
+       fetch("http://127.0.0.1:8000/booking/availtrains/",{
         method: 'POST',
         headers : {'Content-type': 'application/json'},
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(form)
     })       
-    .then( data =>{ console.log(data) })
+    .then( data =>{
+        this.props.history.push('/Dashboard/Train');  
+        console.log(data) })
      .catch( error => console.error(error))
        
 
-        this.props.history.push('/Dashboard/Train');  
     }
     
     
@@ -68,7 +76,7 @@ class Booking extends Component {
 
                         <div className="booking-textbox">
                             <FontAwesomeIcon icon = {faCalendarAlt} />
-                            <input classname = "dateoftravel" name="dateoftravel" type="date" value={this.state.dateoftravel} onChange={this.handleChange} placeholder="Travel Date"  required/>
+                            <input classname = "dateoftravel" name="dateoftravel" type="datetime-local" value={this.state.dateoftravel} onChange={this.handleChange} placeholder="Travel Date"  required/>
                         </div>
 
                         <div  className="booking-textbox">

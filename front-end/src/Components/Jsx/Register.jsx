@@ -41,10 +41,11 @@ export class Register extends Component {
            headers : {'Content-type': 'application/json'},
            body: JSON.stringify(form)
        })       
-       .then( data =>{ console.log(data) })
+       .then( data =>{
+        this.props.history.push('/Login');     
+        console.log(data) })
         .catch( error => console.error(error))
 
-        this.props.history.push('/Dashboard');  
     }
    
       

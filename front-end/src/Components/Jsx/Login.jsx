@@ -28,16 +28,19 @@ class Login extends Component {
         }
 
        event.preventDefault();
-       console.log(this.state);
-       fetch("http://127.0.0.1:8000/user/login",{
+       fetch("http://127.0.0.1:8000/user/login/",{
            method: 'POST',
            headers : {'Content-type': 'application/json'},
            body: JSON.stringify(form)
        })       
-       .then( data =>{ console.log(data) })
+       .then( data =>{ 
+        
+        this.props.history.push('/Dashboard');  
+        console.log(data) }
+       
+       )
         .catch( error => console.error(error))
 
-        this.props.history.push('/Dashboard');  
     }
     
     render(){
