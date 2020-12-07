@@ -21,7 +21,6 @@ class UserRegister(ApiErrorsMixin, APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.data
-            user['password'] = make_password(user['password'])
             userobj = User.objects.create(**user)
             if userobj:
                 json = serializer.data
