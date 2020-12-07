@@ -20,7 +20,7 @@ from users.views import UserRegister, UserLogin
 from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
-    path('', include_docs_urls(title='Finish Factory Backend')),
+    path('', include_docs_urls(title='Railway System')),
     path('admin/', admin.site.urls),
     path('user/', include('users.urls')),
     path('booking/', include('booking.urls'))
