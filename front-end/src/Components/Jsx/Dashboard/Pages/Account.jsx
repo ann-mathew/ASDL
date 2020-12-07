@@ -5,8 +5,8 @@ class Account extends Component {
     constructor(){
         super();
         this.state={
-            name:"Aiswarya Jayachandran",
-            DOB: "24-05-20",
+            Aname:"Aiswarya Jayachandran",
+            Age: "20",
             email :"aiswarya@gmail.com",
             phone : "2123445444"
         }
@@ -39,27 +39,28 @@ class Account extends Component {
     render() {
         return (
             <div id="main-content" >
+             <h3  id="account-title">Account Details</h3>
+
                 <div className=" account col-md-12">
                     <div className="form-area"> 
-                        <h3  id="account-title">Account Details</h3>
     
                         <form id="account-form">
 
-                            <div className="form-group">
-                            <label for="name">Name:</label>
-                            <input id="name" value={this.state.name} name="name" type="text" onChange={this.handleChange} className="form-control" placeholder="Name"  />
+                            <div >
+                            <label for="Aname">Name:</label>
+                            <input id="Aname" value={this.state.Aname} name="Aname" type="text" onChange={this.handleChange} className="form-control" placeholder="Name"  />
                             
-                            <label for="DOB">DOB:</label>
-                            <input  id="DOB" value={this.state.DOB} name="DOB" type="date" onChange={this.handleChange} className="form-control" placeholder="DOB" />
+                            <label for="Age">Age:</label>
+                            <input  id="Age" value={this.state.Age} name="Age" type="number" onChange={this.handleChange} className="form-control" placeholder="Age" />
                             
-                            <label for="Email">Email:</label>
-                            <input id="Email" value={this.state.email}  name="email" type="text" onChange={this.handleChange} className="form-control" placeholder="Email" />
+                            <label for="email">Email:</label>
+                            <input id="email" value={this.state.email}  name="email" type="text" onChange={this.handleChange} className="form-control" placeholder="Email" />
                             
                             <label for="phone">Phone:</label>
                             <input id="phone" value={this.state.phone} name="phone" type="text" onChange={this.handleChange} className="form-control" placeholder="Phone"  />
                             </div>
                             
-                            <button  id="account-button" type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary pull-right">Update</button>
+                            <button  id="account-button" type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary  mt-4 pull-right">Update</button>
                         </form>
                     </div>
                 </div>

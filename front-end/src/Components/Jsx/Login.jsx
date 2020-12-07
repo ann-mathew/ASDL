@@ -24,7 +24,7 @@ class Login extends Component {
     async handleSubmit(event){
        event.preventDefault();
        console.log(this.state);
-       fetch(URL,{
+       fetch("http://127.0.0.1:8000/user/login",{
            method: 'POST',
            headers : {'Content-type': 'application/json'},
            body: JSON.stringify(this.state)
