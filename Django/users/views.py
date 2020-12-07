@@ -37,7 +37,7 @@ class UserLogin(ApiErrorsMixin, APIView):
         cred = self.serializer_class(data=request.data)
         if not cred.is_valid():
             return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
-        user = authenticate(**cred.data)
+        user = authenticate(username=cred.data["email"], password=cred.data["password"])
         if not user:
             return Response({'error': 'Invalid Credentials'}, status=status.HTTP_404_NOT_FOUND)
         token, created = Token.objects.get_or_create(user=user)

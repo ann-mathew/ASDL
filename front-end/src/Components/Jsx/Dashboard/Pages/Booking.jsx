@@ -7,8 +7,8 @@ import "../../../Css/Booking.css"
 
 class Booking extends Component {
     
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             
             boarding : "",
@@ -30,6 +30,7 @@ class Booking extends Component {
       }
 
     async handleSubmit(event){
+
        event.preventDefault();
        var form={
             source:this.state.boarding,
@@ -38,22 +39,27 @@ class Booking extends Component {
             coach_class:this.state.classoftravel,
             seats:this.state.passengers
        }
-       
+
+       console.log(form)
+
        fetch("http://127.0.0.1:8000/booking/availtrains/",{
         method: 'POST',
         headers : {'Content-type': 'application/json'},
         body: JSON.stringify(form)
-    })       
+    })  
+    .then(function(response) {
+        return response.data ;
+      }) 
     .then( data =>{
-        this.props.history.push('/Dashboard/Train');  
-        console.log(data) })
-     .catch( error => console.error(error))
-       
+        this.props.history.push({
+            pathname: '/Dashboard/Train',
+            state: { data: data }
+          })
+     })
+     
+    .catch( error => console.error(error))
 
     }
-    
-    
-    
     
     render() {
         return (
@@ -81,8 +87,8 @@ class Booking extends Component {
 
                         <div  className="booking-textbox">
                             
-                                <select classnName="selectclass" defaultValue={this.state.classoftravel} onChange={this.handleChange}>
-                                    <option value="" disabled className="text-hide">Select Class</option>
+                                <select classnName="selectclass" name="classoftravel" onChange={this.handleChange}>
+                                    <option value=" " disabled className="text-hide">Select Class</option>
                                     <option value="Sleeper Class">Sleeper Class</option>
                                     <option value="Third AC">Third AC</option>
                                     <option value="Second AC">Second AC</option>

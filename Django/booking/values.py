@@ -9,6 +9,7 @@ COACH_CLASS = Class_Choices =  [
     ('Sleeper Class', 'Sleeper Class'),
     ('Third AC', 'Third AC'),
     ('First AC', 'First AC'),
+    ('Second AC', 'Second AC'),
     ('Second Seating', 'Second Seating'),
     ('AC Chair Car', 'AC Chair Car'),
     ('First Class', 'First Class'),
