@@ -28,3 +28,4 @@ def getBookings(user: str):
     else:
         return { 'bookings': bookings }
 
+
