@@ -8,10 +8,11 @@ export class Register extends Component {
         super()
         this.state={
           Rname:"",
+          username:"",
           email:"",
           phone:"",
           password: "",
-          dob: ""
+          age: ""
         }
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
@@ -24,17 +25,25 @@ export class Register extends Component {
       }
 
     async handleSubmit(event){
+        var form={
+            full_name: this.state.Rname,
+            username: this.state.username,
+            password:this.state.password,
+            email:this.state.email,
+            phoneNo:this.state.phone,
+            age:this.state.age,
+
+        }
        event.preventDefault();
        console.log(this.state);
-       fetch("http://127.0.0.1:8000/user/register",{
+       fetch("http://127.0.0.1:8000/user/register/",{
            method: 'POST',
            headers : {'Content-type': 'application/json'},
-           body: JSON.stringify(this.state)
+           body: JSON.stringify(form)
        })       
        .then( data =>{ console.log(data) })
         .catch( error => console.error(error))
 
-          
         this.props.history.push('/Dashboard');  
     }
    
@@ -52,11 +61,11 @@ export class Register extends Component {
                             <input className="Rname" name="Rname" type="text" value={this.state.Rname} onChange={this.handleChange}  placeholder="Enter Full Name" required/>
                         </div>
 
-
                         <div className="register-textbox">
-                            <FontAwesomeIcon icon={faCalendarAlt} />
-                            <input className="dob" name="dob" type="int" value={this.state.dob} onChange={this.handleChange}  placeholder="Enter Age" required/>
+                            <FontAwesomeIcon icon={faUser} />
+                            <input className="username" name="username" type="text" value={this.state.username} onChange={this.handleChange}  placeholder="Enter Username" required/>
                         </div>
+
                         
                         <div className="register-textbox">
                             <FontAwesomeIcon icon={faEnvelope} />
@@ -66,6 +75,11 @@ export class Register extends Component {
                         <div className="register-textbox">
                             <FontAwesomeIcon icon={faPhoneAlt} />
                             <input className="phone" name="phone" type="text" value={this.state.phone} onChange={this.handleChange}  placeholder="Enter Phone Number" required/>
+                        </div>
+                        
+                        <div className="register-textbox">
+                            <FontAwesomeIcon icon={faCalendarAlt} />
+                            <input className="age" name="age" type="int" value={this.state.age} onChange={this.handleChange}  placeholder="Enter Age" required/>
                         </div>
 
                         <div className="register-textbox">

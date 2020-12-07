@@ -67,7 +67,7 @@ h2{
     opacity: 1;
 }
 
-.dob::placeholder{
+.age::placeholder{
     color: white;
     opacity: 1;
 }
@@ -76,6 +76,12 @@ h2{
     color: white;
     opacity: 1;
 }
+
+.username::placeholder{
+    color: white;
+    opacity: 1;
+}
+
 
 .phone::placeholder{
     color: white;

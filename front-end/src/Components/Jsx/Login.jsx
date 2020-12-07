@@ -22,12 +22,17 @@ class Login extends Component {
       }
 
     async handleSubmit(event){
+        var form={
+            email: this.state.email,
+            password: this.state.password
+        }
+
        event.preventDefault();
        console.log(this.state);
        fetch("http://127.0.0.1:8000/user/login",{
            method: 'POST',
            headers : {'Content-type': 'application/json'},
-           body: JSON.stringify(this.state)
+           body: JSON.stringify(form)
        })       
        .then( data =>{ console.log(data) })
         .catch( error => console.error(error))
