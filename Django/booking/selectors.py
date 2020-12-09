@@ -17,7 +17,7 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
             if train.route.filter(station_name=source).first():
                 if train.route.filter(station_name=destination).first():
 
-                        if train.total_seats > seats:
+                        if train.remaining_seats > seats:
         
                             avail_train[train.train_id] = {
                                         "train_id": train.train_id,
@@ -30,7 +30,7 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
                             reserved_train[train.train_id] = {
                                         "train_id": train.train_id,
                                         "train_name": train.train_name,
-                                        "available_seats": -(train.remaining_seats - 1),
+                                        "reservation_queue": -(train.remaining_seats - 1),
                                         "arrival": train.arrival_time,
                                         "departure": train.departure_time
                             }

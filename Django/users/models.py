@@ -10,7 +10,7 @@ class User(AbstractUser):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     full_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100, default = "invalid@gmail.com", unique=True)
+    email = models.EmailField(max_length=100, default = "invalid@gmail.com", unique=True)
     phoneNo = models.CharField(max_length=100, null=True)
     age = models.IntegerField(null=True)
 

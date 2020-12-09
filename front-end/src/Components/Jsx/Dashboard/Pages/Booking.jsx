@@ -42,20 +42,21 @@ class Booking extends Component {
 
        console.log(form)
 
-       fetch("http://127.0.0.1:8000/booking/availtrains/",{
+      fetch("http://127.0.0.1:8000/booking/availtrains/",{
         method: 'POST',
         headers : {'Content-type': 'application/json'},
         body: JSON.stringify(form)
     })  
     .then(function(response) {
-        return response.data ;
+        console.log(response);
+        //return response.data ;
       }) 
-    .then( data =>{
+    /*.then( data =>{
         this.props.history.push({
             pathname: '/Dashboard/Train',
             state: { data: data }
           })
-     })
+     })*/
      
     .catch( error => console.error(error))
 
