@@ -31,6 +31,33 @@ class Booking extends Component {
 
     async handleSubmit(event){
 
+<<<<<<< HEAD
+       event.preventDefault();
+       var form={
+            source:this.state.boarding,
+            destination:this.state.destination,
+            time:this.state.dateoftravel,
+            coach_class:this.state.classoftravel,
+            seats:this.state.passengers
+       }
+
+       console.log(form)
+
+      fetch("http://127.0.0.1:8000/booking/availtrains/",{
+        method: 'POST',
+        headers : {'Content-type': 'application/json'},
+        body: JSON.stringify(form)
+    })  
+    .then(response => 
+        response.json()
+        
+      )
+    .then( data =>{
+        console.log(data)
+        this.props.history.push({pathname : '/Dashboard/Train' , state : data})
+        
+    })
+=======
     //    event.preventDefault();
     //    var form={
     //         source:this.state.boarding,
@@ -57,6 +84,7 @@ class Booking extends Component {
     //         state: { data: data }
     //       })
     //  })
+>>>>>>> 5e73974c8b2b89e5b140fb36c3cb3c6ed702d630
      
     // .catch( error => console.error(error))
 

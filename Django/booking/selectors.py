@@ -6,7 +6,7 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
 
     allTrains = Train.objects.all()
 
-    time = datetime.strptime(time, "%Y-%m-%d %H:%M:%S")
+    time = datetime.strptime(time, "%Y-%m-%d")
     time = pytz.utc.localize(time)
 
     avail_train = {}

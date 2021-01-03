@@ -6,31 +6,40 @@ class Train extends Component {
     constructor(props){
         super(props)
         this.state={
-            Trains: []
+            Trains: {
+                available : [],
+                reserved : [],
+            }
         }
         this.changeRoute=this.changeRoute.bind(this)
     }
 
-
-
     componentDidMount(){
-        const state = this.props.location.state.data
-
         this.setState({
-            Trains: state
+
+
+
         })
+<<<<<<< HEAD
+=======
 
         console.log(this.state.Trains)
         
+>>>>>>> 5e73974c8b2b89e5b140fb36c3cb3c6ed702d630
     }
+
 
     changeRoute(){
         let path = `/Payment`;
         this.props.history.push(path)
     }
     render() {
+        const data = this.props.history.location.state;
 
-        console.log(this.state.Trains)
+     
+
+       
+
         return (
             <div id="main-content" >
                 <div id="train-deets">
@@ -52,7 +61,7 @@ class Train extends Component {
                         </thead>
                         <tbody>
                         {
-                             this.state.Trains.map((item) => (
+                             available.map((item) => (
                                 <tr key={item.TrainNO}>
                                      <td>{item.TrainNO}</td>
                                     <td>{item.Trainname}</td>
@@ -90,7 +99,7 @@ class Train extends Component {
                         </thead>
                         <tbody>
                         {
-                             this.state.Trains.map((item) => (
+                             reserved.map((item) => (
                                 <tr key={item.TrainNO}>
                                      <td>{item.TrainNO}</td>
                                     <td>{item.Trainname}</td>
