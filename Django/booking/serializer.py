@@ -23,7 +23,7 @@ class TrainQuerySerializer(serializers.Serializer):
 
     source = serializers.CharField(max_length=100, allow_blank=False)
     destination = serializers.CharField(max_length=100, allow_blank=False)
-    time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    time = serializers.DateField(format="%Y-%m-%d")
     coach_class = serializers.ChoiceField(choices=Class_Choices)
     seats = serializers.IntegerField()
 
