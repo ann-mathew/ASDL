@@ -31,34 +31,34 @@ class Booking extends Component {
 
     async handleSubmit(event){
 
-       event.preventDefault();
-       var form={
-            source:this.state.boarding,
-            destination:this.state.destination,
-            time:this.state.dateoftravel,
-            coach_class:this.state.classoftravel,
-            seats:this.state.passengers
-       }
+    //    event.preventDefault();
+    //    var form={
+    //         source:this.state.boarding,
+    //         destination:this.state.destination,
+    //         time:this.state.dateoftravel,
+    //         coach_class:this.state.classoftravel,
+    //         seats:this.state.passengers
+    //    }
 
-       console.log(form)
+    //    console.log(form)
 
-      fetch("http://127.0.0.1:8000/booking/availtrains/",{
-        method: 'POST',
-        headers : {'Content-type': 'application/json'},
-        body: JSON.stringify(form)
-    })  
-    .then(function(response) {
-        console.log(response);
-        //return response.data ;
-      }) 
-    /*.then( data =>{
-        this.props.history.push({
-            pathname: '/Dashboard/Train',
-            state: { data: data }
-          })
-     })*/
+    //   fetch("http://127.0.0.1:8000/booking/availtrains/",{
+    //     method: 'POST',
+    //     headers : {'Content-type': 'application/json'},
+    //     body: JSON.stringify(form)
+    // })  
+    // .then(function(response) {
+    //     console.log(response);
+    //      return response.data ;
+    //   }) 
+    // .then( data =>{
+    //     this.props.history.push({
+    //         pathname: '/Dashboard/Train',
+    //         state: { data: data }
+    //       })
+    //  })
      
-    .catch( error => console.error(error))
+    // .catch( error => console.error(error))
 
     }
     
