@@ -20,6 +20,12 @@ class Train extends Component {
 
 
         })
+<<<<<<< HEAD
+=======
+
+        console.log(this.state.Trains)
+        
+>>>>>>> 5e73974c8b2b89e5b140fb36c3cb3c6ed702d630
     }
 
 
