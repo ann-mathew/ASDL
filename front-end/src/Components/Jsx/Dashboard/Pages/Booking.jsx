@@ -47,16 +47,15 @@ class Booking extends Component {
         headers : {'Content-type': 'application/json'},
         body: JSON.stringify(form)
     })  
-    .then(function(response) {
-        console.log(response);
-        //return response.data ;
-      }) 
-    /*.then( data =>{
-        this.props.history.push({
-            pathname: '/Dashboard/Train',
-            state: { data: data }
-          })
-     })*/
+    .then(response => 
+        response.json()
+        
+      )
+    .then( data =>{
+        console.log(data)
+        this.props.history.push({pathname : '/Dashboard/Train' , state : data})
+        
+    })
      
     .catch( error => console.error(error))
 
