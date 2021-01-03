@@ -58,11 +58,11 @@ class Login extends Component {
                 <div className="login">
                     <div className="login-box">
                         <h2>Login</h2>
-                        <form autoComplete="off"  onSubmit={this.handleSubmit}  >
+                        <form autoComplete="off" onSubmit={this.handleSubmit}  >
 
                         <div className="login-textbox">
                             <FontAwesomeIcon icon={faUser} />
-                            <input className="l-email" name="email" type="text" value={this.state.email} onChange={this.handleChange}  placeholder="Email" required/>
+                            <input  className="l-email" name="email" type="text" value={this.state.email} onChange={this.handleChange}  placeholder="Email" required/>
                         </div>
                         
                         <div className="login-textbox">
