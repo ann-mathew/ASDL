@@ -9,7 +9,8 @@ class Login extends Component {
         super()
         this.state={
           email: "",
-          password: ""
+          password: "",
+          errors:" "
         }
         this.handleChange=this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
@@ -34,10 +35,19 @@ class Login extends Component {
            body: JSON.stringify(form)
        })       
        .then( data =>{ 
-        
-        this.props.history.push('/Dashboard');  
-        console.log(data) }
-       
+           if (data.status=="400" || data.status=="404")
+           {
+               this.setState({
+                   errors: "Invalid credentials. Please try again."
+               })
+           }
+
+           else{
+            this.props.history.push('/Dashboard');  
+            console.log(data) }
+
+           }
+
        )
         .catch( error => console.error(error))
 
@@ -48,7 +58,7 @@ class Login extends Component {
                 <div className="login">
                     <div className="login-box">
                         <h2>Login</h2>
-                        <form autoComplete="off">
+                        <form autoComplete="off"  onSubmit={this.handleSubmit}  >
 
                         <div className="login-textbox">
                             <FontAwesomeIcon icon={faUser} />
@@ -60,7 +70,10 @@ class Login extends Component {
                             <input className="l-password" name="password" type="password" value={this.state.password} onChange={this.handleChange}  placeholder="Password" required/>
                         </div>
                             
-                        <input className="login-submit" type="submit" onClick={this.handleSubmit} value="Login"/><br/>
+                        <input className="login-submit" type="submit" value="Login"/><br/>
+
+                        { this.state.errors.length > 0 &&  
+                             <p className='error'>{this.state.errors}</p>}
                         </form>
                         <p style={{textAlign: "center"}}>Don't have an account? <Link  style={{color:"white"}} to="/Register">Register</Link> </p>
 

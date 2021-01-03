@@ -21,6 +21,7 @@ class Train extends Component {
         })
 
         console.log(this.state.Trains)
+        
     }
 
     changeRoute(){
