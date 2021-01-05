@@ -48,3 +48,9 @@ class ApiErrorsMixin:
 
         return super().handle_exception(exc)
 
+def get_token(request):
+    try:
+        token = request.META['HTTP_AUTHORIZATION']
+        return token
+    except:
+        return -1

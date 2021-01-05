@@ -56,4 +56,8 @@ class Ticket(models.Model):
     def __str__(self):
         return self.ticket_number
 
+class LockedSeat(models.Model):
 
+    user = models.ForeignKey(User, null=True,  on_delete=models.SET_NULL)
+    train = models.ForeignKey(Train, on_delete=models.CASCADE)
+    seats = models.IntegerField()

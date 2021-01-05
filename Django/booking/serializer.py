@@ -27,3 +27,9 @@ class TrainQuerySerializer(serializers.Serializer):
     coach_class = serializers.ChoiceField(choices=Class_Choices)
     seats = serializers.IntegerField()
 
+
+class LockSeatsSerializer(serializers.Serializer):
+
+    train_id = serializers.CharField(max_length=20, allow_blank=False)
+    user_id = serializers.CharField(max_length=20, allow_blank=False)
+    seats = serializers.IntegerField()
