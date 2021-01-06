@@ -13,7 +13,7 @@ def book_tickets(train_id, user_id, boarding, destination, passenger_list):     
     
     boardingStation = Station.objects.get(station_name = boarding)
     destinationStation = Station.objects.get(station_name = destination)
-    dist = distance(boardingStation.coor(), destinationStation.coor)
+    dist = distance(boardingStation.coor(), destinationStation.coor())
 
     current_time = time.now()
     if trainObj.seats_left > 0:

@@ -19,6 +19,18 @@ Class_Choices =  [
     ('First Class', 'First Class'),
 ]
 
+Sex_Choices = [
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Transgender', 'Transgender'),
+]
+
+Berth_Choices = [
+    ('Upper Berth', 'Upper Berth'),
+    ('Middle Berth', 'Middle Berth'),
+    ('Lower Berth', 'Lower Berth'),
+]
+
 class TrainQuerySerializer(serializers.Serializer):
 
     source = serializers.CharField(max_length=100, allow_blank=False)
@@ -33,3 +45,18 @@ class LockSeatsSerializer(serializers.Serializer):
     train_id = serializers.CharField(max_length=20, allow_blank=False)
     user_id = serializers.CharField(max_length=20, allow_blank=False)
     seats = serializers.IntegerField()
+
+class PassengerDetailSerializer(serializers.Serializer):
+
+    name = serializers.CharField(max_length=20, allow_blank=False)
+    age = serializers.IntegerField()
+    sex = serializers.ChoiceField(choices=Sex_Choices)
+    berth = serializers.ChoiceField(choices=Berth_Choices)
+
+class BookTicketSerializer(serializers.Serializer):
+
+    train_id = serializers.CharField(max_length=20, allow_blank=False)
+    user_id = serializers.CharField(max_length=20, allow_blank=False)
+    boarding = serializers.CharField(max_length=20, allow_blank=False)
+    destination = serializers.CharField(max_length=20, allow_blank=False)
+    passenger_list = PassengerDetailSerializer(many=True)

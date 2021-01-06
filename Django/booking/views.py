@@ -8,14 +8,13 @@ from rest_framework.response import Response
 from reservation.utils import ApiErrorsMixin, get_token
 from rest_framework import status
 
-from .serializer import TrainQuerySerializer
+from .serializer import TrainQuerySerializer, LockSeatsSerializer, PassengerDetailSerializer, BookTicketSerializer
 from .selectors import getAvailableTrains
 
 class GetAvailableTrains(ApiErrorsMixin, APIView):
 
     serializer_class = TrainQuerySerializer
     def post(self, request):
-
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             avail_trains = getAvailableTrains(**serializer.data)
@@ -44,4 +43,15 @@ class LockSeatsView(ApiErrorsMixin, APIView):
         else:
             return Response({"NONE":"No_TRAINS_AVAILABLE"}, status=status.HTTP_404_NOT_FOUND)
       
-            
+class BookTicketView(ApiErrorsMixin, APIView):
+
+    serializer_class = BookTicketSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            passenger = serializer.data
+            if passenger:
+                json = passenger
+                return Response(json, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
