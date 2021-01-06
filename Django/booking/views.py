@@ -9,7 +9,7 @@ from reservation.utils import ApiErrorsMixin, get_token
 from rest_framework import status
 
 from .serializer import TrainQuerySerializer, LockSeatsSerializer, PassengerDetailSerializer, BookTicketSerializer
-from .selectors import getAvailableTrains
+from .selectors import getAvailableTrains, book_tickets
 
 class GetAvailableTrains(ApiErrorsMixin, APIView):
 
@@ -49,7 +49,7 @@ class BookTicketView(ApiErrorsMixin, APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            passenger = serializer.data
+            passenger = book_tickets(**serializer.data)
             if passenger:
                 json = passenger
                 return Response(json, status=status.HTTP_201_CREATED)
