@@ -29,7 +29,7 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(allow_blank=False)
 
    
-class BookingQuerySerializer(serializers.Serializer):
+class UserIDSerializer(serializers.Serializer):
     
     user = serializers.CharField(max_length=32)
     

@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer, LoginSerializer, BookingQuerySerializer
+from .serializers import UserSerializer, LoginSerializer, UserIDSerializer
 from rest_framework.generics import GenericAPIView
 from users.models import User
 from rest_framework.authtoken.models import Token
@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
-from .selectors import getBookings
+from .selectors import getBookings, getUserData
 
 from reservation.utils import ApiErrorsMixin
 
@@ -42,12 +42,28 @@ class UserLogin(ApiErrorsMixin, GenericAPIView):
         if not user:
             return Response({'error': 'Invalid Credentials'}, status=status.HTTP_404_NOT_FOUND)
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key} , status=status.HTTP_200_OK)
+        return Response({'token': token.key, 'user_data': getUserData(user.pk)} , status=status.HTTP_200_OK)
 
+
+class GetUserData(ApiErrorsMixin, GenericAPIView):
+
+    serializer_class = UserIDSerializer
+    def post(self, request):
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            user = getUserData(**serializer.data)
+            if user:
+                print(json)
+                return Response(user, status=status.HTTP_200_OK)
+            else:
+                return Response({"NONE":"USER_DOES_NOT_EXIST"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GetBookings(ApiErrorsMixin, GenericAPIView):
 
-    serializer_class = BookingQuerySerializer
+    serializer_class = UserIDSerializer
     def post(self, request):
 
         serializer = self.serializer_class(data=request.data)

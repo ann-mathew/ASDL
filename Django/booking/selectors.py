@@ -14,7 +14,7 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
     reserved_train = {}
 
     for train in allTrains:
-        if time<train.arrival_time: 
+        if time<train.start_time: 
             if train.route.filter(station_name=source).first():
                 if train.route.filter(station_name=destination).first():
 
@@ -24,18 +24,18 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
                                         "train_id": train.train_id,
                                         "train_name": train.train_name,
                                         "available_seats": train.remaining_seats,
-                                        "arrival": train.arrival_time,
-                                        "departure": train.departure_time,
-                                        
+                                        "arrival": train.start_time,
+                                        "departure": train.end_time,
+                                        "price": train.min_price
                             }
                         else:
                             reserved_train[train.train_id] = {
                                         "train_id": train.train_id,
                                         "train_name": train.train_name,
                                         "reservation_queue": -(train.remaining_seats - 1),
-                                        "arrival": train.arrival_time,
-                                        "departure": train.departure_time,
-                                        
+                                        "arrival": train.start_time,
+                                        "departure": train.end_time,
+                                        "price": train.min_price
                             }
 
             
@@ -57,8 +57,8 @@ def getTicketDetails(ticket_id):
             },
         "train":{
             "train_name":ticket.train.train_name,
-            "arrival_time":ticket.train.arrival_time,
-            "departure_time":ticket.train.departure_time,
+            "arrival_time":ticket.train.start_time,
+            "departure_time":ticket.train.end_time,
         },
         "seat_no":ticket.seat_no,
         "price":ticket.price,
@@ -74,7 +74,7 @@ def getTrainDetails(train_id):
             "total_seats":train.total_seats,
             "remaining_seats":train.remaining_seats,
             "train_name":train.train_name,
-            "arrival_time":train.arrival_time,
-            "departure_time":train.departure_time,
+            "arrival_time":train.start_time,
+            "departure_time":train.end_time,
         }
     return data

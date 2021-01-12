@@ -2,7 +2,7 @@ from .models import Ticket, Train, Station, LockedSeat
 from users.models import User, Passenger
 from django.utils import timezone
 import math
-
+from users.selectors import getUserIDFromToken
 
 def distance(p0, p1):
     return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
@@ -27,10 +27,11 @@ def mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, cu
     passengerObj = Passenger.objects.create(**passenger)
     ticketObj = Ticket.objects.create(ticket_number=unique_key_generator(6), user=userObj, passenger=passengerObj, train=trainObj, seat_no="A", 
         book_date=current_time, price=price, boarding=boardingStation, destination=destinationStation)
-    return ticketObj.pk
+    return ticketObj.ticket_number
 
 
-def book_tickets(train_id, user_id, boarding, destination, passenger_list):     # Work in Progress Function.
+def book_tickets(train_id, token, boarding, destination, passenger_list):     # Work in Progress Function.
+    user_id = getUserIDFromToken(token)
     ticket_list =[]
     trainObj = Train.objects.get(train_id = train_id)
     userObj = User.objects.get(pk = user_id)
@@ -41,22 +42,24 @@ def book_tickets(train_id, user_id, boarding, destination, passenger_list):     
     dist = 100
     print("2")
     current_time = timezone.now()
-    if trainObj.remaining_seats > 0:
-        price = (dist+1) + (trainObj.total_seats - trainObj.remaining_seats) * 200 
-    else:
-        price = (dist+1) + (trainObj.total_seats - trainObj.remaining_seats) * 200 
+    price = (trainObj.total_seats - trainObj.remaining_seats)*1.5 + ( trainObj.min_price + dist )
+
+    if trainObj.remaining_seats < 0:
+        raise Exception("No seats left in this train.")
+
     for passenger in passenger_list:
         ticket_list.append(mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, current_time, passenger, price))
     return ticket_list
 
 
-def lock_seats(train_id, user_id, seats):
+def lock_seats(train_id, token, seats):
 
+    user_id = getUserIDFromToken(token)
     trainObj = Train.objects.get(train_id = train_id)
     userObj = User.objects.get(pk = user_id)
     trainObj.remaining_seats = trainObj.remaining_seats - seats
     trainObj.save()
-    #lock = LockedSeat.objects.create(train_id, user_id, seats)
+    lock = LockedSeat.objects.create(train_id=train_id, user_id=user_id, seats=seats, time=timezone.now())
     return seats
     
 

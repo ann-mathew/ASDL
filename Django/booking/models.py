@@ -18,6 +18,14 @@ class Station(models.Model):
     def __str__(self):
         return self.station_name
 
+class Route(models.Model):
+    route_id = models.CharField(primary_key = True, max_length=10)
+    train_id = models.CharField(default=None, max_length=10)
+    station = models.ForeignKey(Station, on_delete=models.CASCADE)
+    route_index = models.PositiveIntegerField(default=1)
+    expected_time = models.DateTimeField(default=None, blank=True)
+    actual_time = models.DateTimeField(default=None, blank=True)
+
 
 class Train(models.Model):
 
@@ -25,15 +33,16 @@ class Train(models.Model):
     train_name = models.CharField(max_length=100)
     total_seats = models.IntegerField()
     remaining_seats = models.IntegerField(default=100)
-    arrival_time = models.DateTimeField()
-    departure_time = models.DateTimeField()
-
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    min_price = models.FloatField(default=200)
+    route_table = models.ManyToManyField(Route, blank=True)
     route = models.ManyToManyField(Station)
-
-
-
     def __str__(self):
         return self.train_name
+
+
+
 
 
 TICKETS_NUMBER = [('A1', 'A1'),]
@@ -65,3 +74,4 @@ class LockedSeat(models.Model):
     user = models.ForeignKey(User, null=True,  on_delete=models.SET_NULL)
     train = models.ForeignKey(Train, on_delete=models.CASCADE)
     seats = models.IntegerField()
+    time = models.DateTimeField(null=True)

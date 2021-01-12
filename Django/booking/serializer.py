@@ -1,7 +1,7 @@
 from django.db import models
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-
+from users.models import Gender
 
 # <option value="Sleeper Class">Sleeper Class</option>
 # <option value="Third AC">Third AC</option>
@@ -19,11 +19,7 @@ Class_Choices =  [
     ('First Class', 'First Class'),
 ]
 
-Sex_Choices = [
-    ('Male', 'Male'),
-    ('Female', 'Female'),
-    ('Transgender', 'Transgender'),
-]
+
 
 Berth_Choices = [
     ('Upper Berth', 'Upper Berth'),
@@ -43,20 +39,20 @@ class TrainQuerySerializer(serializers.Serializer):
 class LockSeatsSerializer(serializers.Serializer):
 
     train_id = serializers.CharField(max_length=20, allow_blank=False)
-    user_id = serializers.CharField(max_length=20, allow_blank=False)
+    token = serializers.CharField(max_length=100, allow_blank=False)
     seats = serializers.IntegerField()
 
 class PassengerDetailSerializer(serializers.Serializer):
 
     name = serializers.CharField(max_length=20, allow_blank=False)
     age = serializers.IntegerField()
-    gender = serializers.ChoiceField(choices=Sex_Choices)
+    gender = serializers.ChoiceField(choices=Gender)
     berth = serializers.ChoiceField(choices=Berth_Choices)
 
 class BookTicketSerializer(serializers.Serializer):
 
     train_id = serializers.CharField(max_length=20, allow_blank=False)
-    user_id = serializers.CharField(max_length=20, allow_blank=False)
+    token = serializers.CharField(max_length=100, allow_blank=False)
     boarding = serializers.CharField(max_length=20, allow_blank=False)
     destination = serializers.CharField(max_length=20, allow_blank=False)
     passenger_list = PassengerDetailSerializer(many=True)

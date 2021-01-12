@@ -40,7 +40,7 @@ class LockSeatsView(ApiErrorsMixin, GenericAPIView):
         seats = lock_seats(**serializer.data)
         
         if seats:
-            return Response({"Success": "Locked " + str(seats) + " Seats"}, status=status.HTTP_201_CREATED)
+            return Response({"Success": "Locked " + str(seats) + " Seats for 15 minutes."}, status=status.HTTP_201_CREATED)
         else:
             return Response({"NONE":"No_TRAINS_AVAILABLE"}, status=status.HTTP_404_NOT_FOUND)
       
