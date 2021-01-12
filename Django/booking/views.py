@@ -11,7 +11,7 @@ from rest_framework.generics import GenericAPIView
 
 from .serializer import TrainQuerySerializer, LockSeatsSerializer, PassengerDetailSerializer, BookTicketSerializer
 from .selectors import getAvailableTrains, getTicketDetails, getTrainDetails
-from .services import book_tickets
+from .services import book_tickets, lock_seats
 
 class GetAvailableTrains(ApiErrorsMixin, GenericAPIView):
 
@@ -37,11 +37,10 @@ class LockSeatsView(ApiErrorsMixin, GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        avail_trains = getAvailableTrains(**serializer.data)
+        seats = lock_seats(**serializer.data)
         
-        if avail_trains:
-            json = avail_trains
-            return Response(json, status=status.HTTP_201_CREATED)
+        if seats:
+            return Response({"Success": "Locked " + str(seats) + " Seats"}, status=status.HTTP_201_CREATED)
         else:
             return Response({"NONE":"No_TRAINS_AVAILABLE"}, status=status.HTTP_404_NOT_FOUND)
       

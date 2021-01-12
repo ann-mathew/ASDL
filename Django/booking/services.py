@@ -54,9 +54,9 @@ def lock_seats(train_id, user_id, seats):
 
     trainObj = Train.objects.get(train_id = train_id)
     userObj = User.objects.get(pk = user_id)
-    trainObj['remaining_seats'] = trainObj['remaining_seats'] - seats
-
-    lock = LockedSeat.objects.create(train_id, user_id, seats)
-
+    trainObj.remaining_seats = trainObj.remaining_seats - seats
+    trainObj.save()
+    #lock = LockedSeat.objects.create(train_id, user_id, seats)
+    return seats
     
 
