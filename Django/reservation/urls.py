@@ -8,9 +8,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Alfred API",
-        default_version='v0',
-        description="Alfred API Backend Service",
+        title="Railway Management API",
+        default_version='v1',
+        description="Railway Management API Backend Service",
     ),
     public=False,
     permission_classes=(permissions.AllowAny,),
