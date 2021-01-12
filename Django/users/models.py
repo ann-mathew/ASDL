@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import secrets
+
+def get_code():
+  return secrets.token_hex(4).upper()
+
 
 Roles = (("USER", "User"), ("ROC", "ROC"), ("ADMIN", "Admin"))
 
@@ -24,10 +29,11 @@ class User(AbstractUser):
 Gender = (("Male", "M"), ("Female", "F"), ("Other", "Other"))
 
 class Passenger(models.Model):
-    passenger_id = models.CharField(max_length=32, primary_key=True)
+    passenger_id = models.CharField(max_length=32, primary_key=True, default=get_code, editable=False)
     name = models.CharField(max_length=100)
     gender = (models.CharField(max_length=20, choices = Gender))
     age = models.IntegerField(null=True)
+    berth = models.CharField(max_length=20, default="Upper Berth")
 
     def __str__(self):
         return self.passenger_id

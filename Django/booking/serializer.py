@@ -50,7 +50,7 @@ class PassengerDetailSerializer(serializers.Serializer):
 
     name = serializers.CharField(max_length=20, allow_blank=False)
     age = serializers.IntegerField()
-    sex = serializers.ChoiceField(choices=Sex_Choices)
+    gender = serializers.ChoiceField(choices=Sex_Choices)
     berth = serializers.ChoiceField(choices=Berth_Choices)
 
 class BookTicketSerializer(serializers.Serializer):

@@ -9,7 +9,8 @@ from reservation.utils import ApiErrorsMixin, get_token
 from rest_framework import status
 
 from .serializer import TrainQuerySerializer, LockSeatsSerializer, PassengerDetailSerializer, BookTicketSerializer
-from .selectors import getAvailableTrains, book_tickets
+from .selectors import getAvailableTrains, getTicketDetails, getTrainDetails
+from .services import book_tickets
 
 class GetAvailableTrains(ApiErrorsMixin, APIView):
 
@@ -49,9 +50,34 @@ class BookTicketView(ApiErrorsMixin, APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            passenger = book_tickets(**serializer.data)
-            if passenger:
-                json = passenger
-                return Response(json, status=status.HTTP_201_CREATED)
+            try:
+                passenger = book_tickets(**serializer.data)
+                if passenger:
+                    json = passenger
+                    return Response(json, status=status.HTTP_201_CREATED)
+                else:
+                    return Response({"error":"ticket already exists"}, status=status.HTTP_404_NOT_FOUND)   
+            except Exception as e:
+                return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_409_CONFLICT)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+      
+class GetTicketView(ApiErrorsMixin, APIView):
+
+    def get(self, request, ticket_id):
+        try:
+            ticket = getTicketDetails(ticket_id)
+            return Response(ticket, status=status.HTTP_200_OK)
+        except Exception as e:
+                return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_404_NOT_FOUND)
+
+class GetTrainView(ApiErrorsMixin, APIView):
+
+    def get(self, request, train_id):
+        try:
+            train = getTrainDetails(train_id)
+            return Response(train, status=status.HTTP_200_OK)
+        except Exception as e:
+                return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_404_NOT_FOUND)
+

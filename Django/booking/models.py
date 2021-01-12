@@ -1,6 +1,10 @@
 from django.db import models
 from django.db.models.base import Model
 from users.models import User, Passenger
+import secrets
+
+def get_code():
+  return secrets.token_hex(4).upper()
 
 # Create your models here.
 
@@ -8,7 +12,7 @@ from users.models import User, Passenger
 class Station(models.Model):
 
     station_id = models.CharField(primary_key = True, max_length=10)
-    station_name = models.CharField(max_length=100)
+    station_name = models.CharField(max_length=100, default="ernakulam")
     station_address = models.CharField(max_length=100)
 
     def __str__(self):
@@ -41,8 +45,8 @@ TICKETS_NUMBER = tuple(TICKETS_NUMBER)
 
 class Ticket(models.Model):
 
-    ticket_id = models.CharField(primary_key = True, max_length=10)
-    ticket_number = models.CharField(max_length=10) 
+    ticket_id = models.CharField(primary_key = True, max_length=10, default=get_code, editable=False)
+    ticket_number = models.CharField(max_length=10, default = 10)
     user = models.ForeignKey(User, null=True,  on_delete=models.SET_NULL)
     passenger = models.ForeignKey(Passenger, null=True,  on_delete=models.SET_NULL)
     train = models.ForeignKey(Train, on_delete=models.CASCADE)
