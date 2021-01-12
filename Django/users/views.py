@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer, LoginSerializer, BookingQuerySerializer
+from rest_framework.generics import GenericAPIView
 from users.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
@@ -13,7 +14,7 @@ from .selectors import getBookings
 from reservation.utils import ApiErrorsMixin
 
 
-class UserRegister(ApiErrorsMixin, APIView):
+class UserRegister(ApiErrorsMixin, GenericAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
@@ -29,7 +30,7 @@ class UserRegister(ApiErrorsMixin, APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserLogin(ApiErrorsMixin, APIView):
+class UserLogin(ApiErrorsMixin, GenericAPIView):
     serializer_class = LoginSerializer
 
 
@@ -44,7 +45,7 @@ class UserLogin(ApiErrorsMixin, APIView):
         return Response({'token': token.key} , status=status.HTTP_200_OK)
 
 
-class GetBookings(ApiErrorsMixin, APIView):
+class GetBookings(ApiErrorsMixin, GenericAPIView):
 
     serializer_class = BookingQuerySerializer
     def post(self, request):

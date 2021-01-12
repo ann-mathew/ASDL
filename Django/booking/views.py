@@ -7,12 +7,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from reservation.utils import ApiErrorsMixin, get_token
 from rest_framework import status
+from rest_framework.generics import GenericAPIView
 
 from .serializer import TrainQuerySerializer, LockSeatsSerializer, PassengerDetailSerializer, BookTicketSerializer
 from .selectors import getAvailableTrains, getTicketDetails, getTrainDetails
 from .services import book_tickets
 
-class GetAvailableTrains(ApiErrorsMixin, APIView):
+class GetAvailableTrains(ApiErrorsMixin, GenericAPIView):
 
     serializer_class = TrainQuerySerializer
     def post(self, request):
@@ -28,9 +29,9 @@ class GetAvailableTrains(ApiErrorsMixin, APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LockSeatsView(ApiErrorsMixin, APIView):
+class LockSeatsView(ApiErrorsMixin, GenericAPIView):
 
-    serializer_class = TrainQuerySerializer
+    serializer_class = LockSeatsSerializer
     def post(self, request):
         token = get_token(request)
         serializer = self.serializer_class(data=request.data)
@@ -44,7 +45,7 @@ class LockSeatsView(ApiErrorsMixin, APIView):
         else:
             return Response({"NONE":"No_TRAINS_AVAILABLE"}, status=status.HTTP_404_NOT_FOUND)
       
-class BookTicketView(ApiErrorsMixin, APIView):
+class BookTicketView(ApiErrorsMixin, GenericAPIView):
 
     serializer_class = BookTicketSerializer
     def post(self, request):
@@ -72,7 +73,7 @@ class GetTicketView(ApiErrorsMixin, APIView):
         except Exception as e:
                 return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_404_NOT_FOUND)
 
-class GetTrainView(ApiErrorsMixin, APIView):
+class GetTrainView(ApiErrorsMixin, GenericAPIView):
 
     def get(self, request, train_id):
         try:
