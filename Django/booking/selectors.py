@@ -26,7 +26,7 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
                                         "available_seats": train.remaining_seats,
                                         "arrival": train.arrival_time,
                                         "departure": train.departure_time,
-                                        "price": train.price
+                                        
                             }
                         else:
                             reserved_train[train.train_id] = {
@@ -35,7 +35,7 @@ def getAvailableTrains(source: str, destination: str, time, coach_class: str, se
                                         "reservation_queue": -(train.remaining_seats - 1),
                                         "arrival": train.arrival_time,
                                         "departure": train.departure_time,
-                                        "price": train.price
+                                        
                             }
 
             
