@@ -30,6 +30,8 @@ class LoginSerializer(serializers.Serializer):
 
    
 class UserIDSerializer(serializers.Serializer):
-    
     user = serializers.CharField(max_length=32)
+
+class TokenSerializer(serializers.Serializer):
+    token = serializers.CharField(max_length=100)
     

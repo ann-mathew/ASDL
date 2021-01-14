@@ -5,8 +5,8 @@ import pytz
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
-def getBookings(user: str):
-
+def getBookings(token: str):
+    user = getUserIDFromToken(token)
     unqiue_transactions = list(Ticket.objects.filter(user=user).values("transaction_id").distinct())
     bookings = {}
 

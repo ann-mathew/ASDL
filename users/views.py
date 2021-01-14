@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from users.models import User
 
 from .selectors import getBookings, getUserData
-from .serializers import LoginSerializer, UserIDSerializer, UserSerializer
+from .serializers import LoginSerializer, UserIDSerializer, UserSerializer, TokenSerializer
 
 
 class UserRegister(ApiErrorsMixin, GenericAPIView):
@@ -73,7 +73,7 @@ class GetUserData(ApiErrorsMixin, GenericAPIView):
 
 class GetBookings(ApiErrorsMixin, GenericAPIView):
 
-    serializer_class = UserIDSerializer
+    serializer_class = TokenSerializer
 
 
     @swagger_auto_schema(operation_description="API to Get all bookings, grouped by transactions id\n Returns: https://pastebin.com/EX0nQByB ",
