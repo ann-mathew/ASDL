@@ -28,10 +28,10 @@ def seat_select():
     index = randrange(len(TICKETS_NUMBER) - 1)
     return TICKETS_NUMBER[index][0]
 
-def mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, current_time, passenger, price):
+def mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, current_time, passenger, price, transactionId):
     passengerObj = Passenger.objects.create(**passenger)
     ticketObj = Ticket.objects.create(ticket_number=unique_key_generator(6), user=userObj, passenger=passengerObj, train=trainObj, seat_no=seat_select(), 
-        book_date=current_time, price=price, boarding=boardingStation, destination=destinationStation)
+        book_date=current_time, price=price, boarding=boardingStation, destination=destinationStation, transaction_id=transactionId)
     return ticketObj.ticket_number
 
 
@@ -48,13 +48,13 @@ def book_tickets(train_id, token, boarding, destination, passenger_list):     # 
     print("2")
     current_time = timezone.now()
     price = (trainObj.total_seats - trainObj.remaining_seats)*1.5 + ( trainObj.min_price + dist )
-
+    transaction_id = unique_key_generator(10)
     if trainObj.remaining_seats < 0:
         raise Exception("No seats left in this train.")
 
     for passenger in passenger_list:
-        ticket_list.append(mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, current_time, passenger, price))
-    return ticket_list
+        ticket_list.append(mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, current_time, passenger, price, transaction_id))
+    return {"ticket_list": ticket_list, "price": price*len(passenger_list), "transaction_id": transaction_id}
 
 
 def lock_seats(train_id, token, seats):

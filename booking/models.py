@@ -63,7 +63,7 @@ class Ticket(models.Model):
     seat_no = models.CharField(max_length=5, choices=TICKETS_NUMBER)
     book_date = models.DateTimeField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
-
+    transaction_id = models.CharField(max_length=10, default = 10)
     boarding = models.ForeignKey(Station, related_name='boarding',  on_delete=models.CASCADE)
     destination = models.ForeignKey(Station, related_name='destination', on_delete=models.CASCADE)
 

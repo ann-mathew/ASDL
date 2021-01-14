@@ -42,7 +42,7 @@ class LockSeatsSerializer(serializers.Serializer):
 
 class PassengerDetailSerializer(serializers.Serializer):
 
-    name = serializers.CharField(max_length=20, allow_blank=False)
+    name = serializers.CharField(max_length=100, allow_blank=False)
     age = serializers.IntegerField()
     gender = serializers.ChoiceField(choices=Gender)
     berth = serializers.ChoiceField(choices=Berth_Choices)
@@ -61,3 +61,7 @@ class CancelTicketSerializer(serializers.Serializer):
     ticket_number = serializers.CharField(max_length=20, allow_blank=False)
     token = serializers.CharField(max_length=100, allow_blank=False)
 
+class TransactionIDSerializer(serializers.Serializer):
+
+    transaction_id = serializers.CharField(max_length=20, allow_blank=False)
+    token = serializers.CharField(max_length=100, allow_blank=False)

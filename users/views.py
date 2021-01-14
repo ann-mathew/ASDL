@@ -57,7 +57,6 @@ class GetUserData(ApiErrorsMixin, GenericAPIView):
         if serializer.is_valid():
             user = getUserData(**serializer.data)
             if user:
-                print(json)
                 return Response(user, status=status.HTTP_200_OK)
             else:
                 return Response({"NONE":"USER_DOES_NOT_EXIST"}, status=status.HTTP_404_NOT_FOUND)
@@ -71,11 +70,9 @@ class GetBookings(ApiErrorsMixin, GenericAPIView):
 
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            bookings = getBookings(**serializer.data)
+            bookings = getBookings(**serializer.validated_data)
             if bookings:
-                json = bookings
-                print(json)
-                return Response(json, status=status.HTTP_200_OK)
+                return Response(bookings, status=status.HTTP_200_OK)
             else:
                 return Response({"NONE":"No_BOOKINGS"}, status=status.HTTP_404_NOT_FOUND)
         else:

@@ -8,8 +8,8 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Railway Management API",
-        default_version='v1',
+        title="Railway Management API - ASDL",
+        default_version='V2.0',
         description="Railway Management API Backend Service",
     ),
     public=False,

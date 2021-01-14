@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 
 from .selectors import getAvailableTrains, getTicketDetails, getTrainDetails
 from .serializer import (BookTicketSerializer, LockSeatsSerializer,
-                         PassengerDetailSerializer, TrainQuerySerializer, CancelTicketSerializer)
+                         PassengerDetailSerializer, TrainQuerySerializer, CancelTicketSerializer, TransactionIDSerializer)
 from .services import book_tickets, lock_seats, cancel_ticket
 
 
@@ -107,6 +107,24 @@ class CancelTicketView(ApiErrorsMixin, GenericAPIView):
     
     serializer_class = CancelTicketSerializer
     @swagger_auto_schema(operation_description="API to Cancel Specific ticket details from ticket number.",
+                        responses={ 200: 'Ticket Details Retrieved. \n\n Returns details of ticket.',
+                            404: 'If ticket does not exists',})
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            try:
+                train = cancel_ticket(**serializer.validated_data)
+                return Response({"SUCCESS": "TICKET_CANCELLED"}, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_409_CONFLICT)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TransactionDetailsView(ApiErrorsMixin, GenericAPIView):
+    
+    serializer_class = TransactionIDSerializer
+    @swagger_auto_schema(operation_description="API to Get all ticket of a particular transaction.",
                         responses={ 200: 'Ticket Details Retrieved. \n\n Returns details of ticket.',
                             404: 'If ticket does not exists',})
     def post(self, request):

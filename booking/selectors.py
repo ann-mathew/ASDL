@@ -78,3 +78,28 @@ def getTrainDetails(train_id):
             "departure_time":train.end_time,
         }
     return data
+
+
+def getTransactionDetails(transaction_id):
+    ticket_list = Ticket.objects.filter(transaction_id=transaction_id)
+    data = {}
+    for ticket in ticket_list:
+        data[ticket.ticket_number] = {
+            "ticket_number":ticket.ticket_number,
+            "passenger":{
+                "name":ticket.passenger.name,
+                "gender":ticket.passenger.gender,
+                "age":ticket.passenger.age,
+                "berth":ticket.passenger.berth,
+                },
+            "train":{
+                "train_name":ticket.train.train_name,
+                "arrival_time":ticket.train.start_time,
+                "departure_time":ticket.train.end_time,
+            },
+            "seat_no":ticket.seat_no,
+            "price":ticket.price,
+            "boarding":ticket.boarding.station_name,
+            "destination":ticket.destination.station_name
+        }
+    return data
