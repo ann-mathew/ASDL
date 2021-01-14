@@ -7,7 +7,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .selectors import getAvailableTrains, getTicketDetails, getTrainDetails
+from .selectors import getAvailableTrains, getTicketDetails, getTrainDetails, getTransactionDetails
 from .serializer import (BookTicketSerializer, LockSeatsSerializer,
                          PassengerDetailSerializer, TrainQuerySerializer, CancelTicketSerializer, TransactionIDSerializer)
 from .services import book_tickets, lock_seats, cancel_ticket
@@ -131,8 +131,8 @@ class TransactionDetailsView(ApiErrorsMixin, GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             try:
-                train = cancel_ticket(**serializer.validated_data)
-                return Response({"SUCCESS": "TICKET_CANCELLED"}, status=status.HTTP_200_OK)
+                tickets = getTransactionDetails(**serializer.validated_data)
+                return Response({"transaction_tickets": tickets}, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_409_CONFLICT)
         else:

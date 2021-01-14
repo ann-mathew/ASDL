@@ -80,7 +80,7 @@ def getTrainDetails(train_id):
     return data
 
 
-def getTransactionDetails(transaction_id):
+def getTransactionDetails(transaction_id, token):
     ticket_list = Ticket.objects.filter(transaction_id=transaction_id)
     data = {}
     for ticket in ticket_list:
