@@ -22,7 +22,7 @@ class User(AbstractUser):
     role = models.CharField(max_length=20, choices = Roles, default="USER")
 
     def __str__(self):
-            return self.email
+            return self.full_name or self.email
     class Meta:
         ordering=["-timestamp", "-updated"]
 
@@ -36,4 +36,4 @@ class Passenger(models.Model):
     berth = models.CharField(max_length=20, default="Upper Berth")
 
     def __str__(self):
-        return self.passenger_id
+        return self.name

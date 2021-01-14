@@ -1,8 +1,9 @@
-from .models import Ticket, Train, Station, LockedSeat
+from .models import Ticket, Train, Station, LockedSeat, TICKETS_NUMBER
 from users.models import User, Passenger
 from django.utils import timezone
 import math
 from users.selectors import getUserIDFromToken
+from random import randrange
 
 def distance(p0, p1):
     return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
@@ -23,9 +24,13 @@ def unique_key_generator(key_len):
 
     return str(key_string)
 
+def seat_select():
+    index = randrange(len(TICKETS_NUMBER) - 1)
+    return TICKETS_NUMBER[index][0]
+
 def mint_ticket(trainObj, userObj, boardingStation, destinationStation, dist, current_time, passenger, price):
     passengerObj = Passenger.objects.create(**passenger)
-    ticketObj = Ticket.objects.create(ticket_number=unique_key_generator(6), user=userObj, passenger=passengerObj, train=trainObj, seat_no="A", 
+    ticketObj = Ticket.objects.create(ticket_number=unique_key_generator(6), user=userObj, passenger=passengerObj, train=trainObj, seat_no=seat_select(), 
         book_date=current_time, price=price, boarding=boardingStation, destination=destinationStation)
     return ticketObj.ticket_number
 
@@ -69,7 +74,6 @@ def cancel_ticket(ticket_number, token):
 
     if ticket.user.pk == user_id:
         ticket.delete()
-        
     else:
         print(ticket.user.pk + "Not authorised to delete")     
 

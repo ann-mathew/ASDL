@@ -25,7 +25,8 @@ class Route(models.Model):
     route_index = models.PositiveIntegerField(default=1)
     expected_time = models.DateTimeField(default=None, blank=True)
     actual_time = models.DateTimeField(default=None, blank=True)
-
+    def __str__(self):
+            return self.train_id + " - " + self.station.station_id + " (" + str(self.route_index) + ")"
 
 class Train(models.Model):
 
