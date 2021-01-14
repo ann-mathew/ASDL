@@ -19,8 +19,6 @@ Class_Choices =  [
     ('First Class', 'First Class'),
 ]
 
-
-
 Berth_Choices = [
     ('Upper Berth', 'Upper Berth'),
     ('Middle Berth', 'Middle Berth'),
@@ -56,3 +54,10 @@ class BookTicketSerializer(serializers.Serializer):
     boarding = serializers.CharField(max_length=20, allow_blank=False)
     destination = serializers.CharField(max_length=20, allow_blank=False)
     passenger_list = PassengerDetailSerializer(many=True)
+
+
+class CancelTicketSerializer(serializers.Serializer):
+
+    ticket_number = serializers.CharField(max_length=20, allow_blank=False)
+    token = serializers.CharField(max_length=100, allow_blank=False)
+

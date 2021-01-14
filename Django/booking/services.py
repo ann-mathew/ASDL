@@ -61,5 +61,15 @@ def lock_seats(train_id, token, seats):
     trainObj.save()
     lock = LockedSeat.objects.create(train_id=train_id, user_id=user_id, seats=seats, time=timezone.now())
     return seats
-    
+
+
+def cancel_ticket(ticket_number, token):
+    user_id = getUserIDFromToken(token)
+    ticket = Ticket.objects.get(ticket_number=ticket_number)
+
+    if ticket.user.pk == user_id:
+        ticket.delete()
+        
+    else:
+        print(ticket.user.pk + "Not authorised to delete")     
 
