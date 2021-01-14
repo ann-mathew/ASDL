@@ -17,8 +17,8 @@ from .serializers import LoginSerializer, UserIDSerializer, UserSerializer
 
 class UserRegister(ApiErrorsMixin, GenericAPIView):
     serializer_class = UserSerializer
-    @swagger_auto_schema(operation_description="API to Register New Accounts \n Returns ",
-                        responses={ 201: 'Registed User.',
+    @swagger_auto_schema(operation_description="API to Register New Accounts \n Returns Success message.",
+                        responses={ 201: 'Registered User.',
                             409: 'If User with given values already exists. Returns the values that is conflicting as list.',
                             400: 'Invalid POST body format.'})
     def post(self, request):
@@ -36,7 +36,10 @@ class UserRegister(ApiErrorsMixin, GenericAPIView):
 class UserLogin(ApiErrorsMixin, GenericAPIView):
     serializer_class = LoginSerializer
 
-
+    @swagger_auto_schema(operation_description="API to Login\n Returns Token and user details.",
+                        responses={ 200: 'Logged in User.',
+                            409: 'If Invalid Credentials',
+                            400: 'Invalid POST body format.'})
     def post(self, request):
         cred = self.serializer_class(data=request.data)
         if not cred.is_valid():
@@ -51,6 +54,11 @@ class UserLogin(ApiErrorsMixin, GenericAPIView):
 class GetUserData(ApiErrorsMixin, GenericAPIView):
 
     serializer_class = UserIDSerializer
+
+    @swagger_auto_schema(operation_description="API to get user data \n Returns user data",
+                        responses={ 201: 'User Data Got.',
+                            404: 'If User Does not exist',
+                            400: 'Invalid POST body format.'})
     def post(self, request):
 
         serializer = self.serializer_class(data=request.data)
@@ -66,6 +74,12 @@ class GetUserData(ApiErrorsMixin, GenericAPIView):
 class GetBookings(ApiErrorsMixin, GenericAPIView):
 
     serializer_class = UserIDSerializer
+
+
+    @swagger_auto_schema(operation_description="API to Get all bookings, grouped by transactions id\n Returns: https://pastebin.com/EX0nQByB ",
+                        responses={ 200: 'If Success',
+                            404: 'If No Bookings',
+                            400: 'Invalid POST body format.'})
     def post(self, request):
 
         serializer = self.serializer_class(data=request.data)

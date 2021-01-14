@@ -23,6 +23,8 @@ Berth_Choices = [
     ('Upper Berth', 'Upper Berth'),
     ('Middle Berth', 'Middle Berth'),
     ('Lower Berth', 'Lower Berth'),
+    ('Side Lower', 'Side Lower'),
+    ('Side Upper', 'Side Upper'),
 ]
 
 class TrainQuerySerializer(serializers.Serializer):

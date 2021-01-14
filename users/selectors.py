@@ -7,34 +7,60 @@ from rest_framework.authtoken.models import Token
 
 def getBookings(user: str):
 
-    allBookings = Ticket.objects.filter(user=user)
-
+    unqiue_transactions = list(Ticket.objects.filter(user=user).values("transaction_id").distinct())
     bookings = {}
 
-    for ticket in allBookings:
-        bookings[ticket.ticket_number] = {
-        "ticket_number":ticket.ticket_number,
-        "passenger":{
-            "name":ticket.passenger.name,
-            "gender":ticket.passenger.gender,
-            "age":ticket.passenger.age,
-            "berth":ticket.passenger.berth,
-            },
-        "train":{
-            "train_name":ticket.train.train_name,
-            "arrival_time":ticket.train.start_time,
-            "departure_time":ticket.train.end_time,
-        },
-        "seat_no":ticket.seat_no,
-        "price":ticket.price,
-        "boarding":ticket.boarding.station_name,
-        "destination":ticket.destination.station_name
-    }               
+    for transact in unqiue_transactions:
+        id = transact['transaction_id']
+        ticket_list = Ticket.objects.filter(transaction_id = id)
+        bookings[id] = []
+        index = 1
+        for ticket in ticket_list:
+            data = {
+                "ticket_number":ticket.ticket_number,
+                "transaction_id": ticket.transaction_id,
+                "passenger":{
+                    "name":ticket.passenger.name,
+                    "gender":ticket.passenger.gender,
+                    "age":ticket.passenger.age,
+                    "berth":ticket.passenger.berth,
+                    },
+                "train":{
+                    "train_name":ticket.train.train_name,
+                    "arrival_time":ticket.train.start_time,
+                    "departure_time":ticket.train.end_time,
+                },
+                "seat_no":ticket.seat_no,
+                "price":ticket.price,
+                "boarding":ticket.boarding.station_name,
+                "destination":ticket.destination.station_name
+            }  
+            bookings[id].append({"ticket_id": ticket.ticket_number, "data": data})
+            index = index + 1
+    # for ticket in allBookings:
+    #     bookings[ticket.ticket_number] = {
+    #     "ticket_number":ticket.ticket_number,
+    #     "passenger":{
+    #         "name":ticket.passenger.name,
+    #         "gender":ticket.passenger.gender,
+    #         "age":ticket.passenger.age,
+    #         "berth":ticket.passenger.berth,
+    #         },
+    #     "train":{
+    #         "train_name":ticket.train.train_name,
+    #         "arrival_time":ticket.train.start_time,
+    #         "departure_time":ticket.train.end_time,
+    #     },
+    #     "seat_no":ticket.seat_no,
+    #     "price":ticket.price,
+    #     "boarding":ticket.boarding.station_name,
+    #     "destination":ticket.destination.station_name
+    # }               
                       
     if not bool(bookings):
         return None
     else:
-        return { 'bookings': bookings }
+        return {'transactions_count': len(unqiue_transactions), 'bookings': bookings }
 
 
 def getUserData(user: str):
