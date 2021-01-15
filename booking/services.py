@@ -62,10 +62,13 @@ def lock_seats(train_id, token, seats):
     user_id = getUserIDFromToken(token)
     trainObj = Train.objects.get(train_id = train_id)
     userObj = User.objects.get(pk = user_id)
-    trainObj.remaining_seats = trainObj.remaining_seats - seats
-    trainObj.save()
-    lock = LockedSeat.objects.create(train_id=train_id, user_id=user_id, seats=seats, time=timezone.now())
-    return seats
+    if trainObj.remaining_seats - seats >= 0:
+        trainObj.remaining_seats = trainObj.remaining_seats - seats
+        trainObj.save()
+        lock = LockedSeat.objects.create(train_id=train_id, user_id=user_id, seats=seats, time=timezone.now())
+        return seats
+    else:
+        return None
 
 
 def cancel_ticket(ticket_number, token):
@@ -77,3 +80,16 @@ def cancel_ticket(ticket_number, token):
     else:
         print(ticket.user.pk + "Not authorised to delete")     
 
+
+def cancel_ticket_by_transaction(transaction_id, token):
+    user_id = getUserIDFromToken(token)
+    delete_list = []
+    ticket_list = Ticket.objects.filter(transaction_id=transaction_id)
+    for ticket in ticket_list:
+        if ticket.user.pk == user_id:
+            delete_list.append(ticket.ticket_number + " Cancelled")
+            ticket.delete()
+        else:
+            delete_list.append(user_id + " not Authorised to cancel " + ticket.ticket_number + " which is owned by " + (ticket.user.full_name or ticket.user.username))
+    
+    return delete_list
