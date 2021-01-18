@@ -12,8 +12,10 @@ from rest_framework.views import APIView
 from users.models import User
 
 from .selectors import getBookings, getUserData
-from .serializers import (LoginSerializer, UserIDSerializer, UserSerializer, TokenSerializer, SetUserDataSerializer)
-from .services import setUserData
+from .serializers import (LoginSerializer, SetUserDataSerializer,
+                          TokenSerializer, UserIDSerializer, UserSerializer)
+from .services import deleteUser, setUserData
+
 
 ##############################################################################################################################
 class UserRegister(ApiErrorsMixin, GenericAPIView):
@@ -85,13 +87,32 @@ class SetUserDataView(ApiErrorsMixin, GenericAPIView):
                         responses={ 200: 'Data set for User.',
                             409: 'User info conflicts with other users.',
                             400: 'Invalid POST body format.'})
-    def post(self, request):
+    def put(self, request):
         serializer_data = self.serializer_class(data=request.data)
         if not serializer_data.is_valid():
             return Response(serializer_data.errors, status=status.HTTP_400_BAD_REQUEST)
         try:
             user = setUserData(serializer_data.validated_data)
             return Response({"SUCCESS": "USER_DATA_SET:"+str(user)} , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_409_CONFLICT)
+
+#######################################################
+
+class DeleteUserView(ApiErrorsMixin, GenericAPIView):
+    serializer_class = TokenSerializer
+
+    @swagger_auto_schema(operation_description="API to Delete User Account.",
+                        responses={ 200: 'User Deleted Successfully.',
+                            409: '?',
+                            400: 'Invalid POST body format.'})
+    def post(self, request):
+        serializer_data = self.serializer_class(data=request.data)
+        if not serializer_data.is_valid():
+            return Response(serializer_data.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = deleteUser(**serializer_data.validated_data)
+            return Response({"SUCCESS": "USER_DELETED"} , status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_409_CONFLICT)
         
