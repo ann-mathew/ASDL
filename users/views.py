@@ -12,9 +12,10 @@ from rest_framework.views import APIView
 from users.models import User
 
 from .selectors import getBookings, getUserData
-from .serializers import LoginSerializer, UserIDSerializer, UserSerializer, TokenSerializer
+from .serializers import (LoginSerializer, UserIDSerializer, UserSerializer, TokenSerializer, SetUserDataSerializer)
+from .services import setUserData
 
-
+##############################################################################################################################
 class UserRegister(ApiErrorsMixin, GenericAPIView):
     serializer_class = UserSerializer
     @swagger_auto_schema(operation_description="API to Register New Accounts \n Returns Success message.",
@@ -33,6 +34,8 @@ class UserRegister(ApiErrorsMixin, GenericAPIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#######################################################
+
 class UserLogin(ApiErrorsMixin, GenericAPIView):
     serializer_class = LoginSerializer
 
@@ -50,10 +53,11 @@ class UserLogin(ApiErrorsMixin, GenericAPIView):
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key, 'user_data': getUserData(user.pk)} , status=status.HTTP_200_OK)
 
+##############################################################################################################
 
 class GetUserData(ApiErrorsMixin, GenericAPIView):
 
-    serializer_class = UserIDSerializer
+    serializer_class = TokenSerializer
 
     @swagger_auto_schema(operation_description="API to get user data \n Returns user data",
                         responses={ 201: 'User Data Got.',
@@ -70,6 +74,29 @@ class GetUserData(ApiErrorsMixin, GenericAPIView):
                 return Response({"NONE":"USER_DOES_NOT_EXIST"}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#######################################################
+
+class SetUserDataView(ApiErrorsMixin, GenericAPIView):
+    serializer_class = SetUserDataSerializer
+
+    @swagger_auto_schema(operation_description="API to Edit Some User Data.\n \
+        Only need to send keys that need to be edited (i.e none of the keys are really required)",
+                        responses={ 200: 'Data set for User.',
+                            409: 'User info conflicts with other users.',
+                            400: 'Invalid POST body format.'})
+    def post(self, request):
+        serializer_data = self.serializer_class(data=request.data)
+        if not serializer_data.is_valid():
+            return Response(serializer_data.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = setUserData(serializer_data.validated_data)
+            return Response({"SUCCESS": "USER_DATA_SET:"+str(user)} , status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'ERROR': type(e).__name__, "MESSAGE": str(e)}, status=status.HTTP_409_CONFLICT)
+        
+
+##############################################################################################################
 
 class GetBookings(ApiErrorsMixin, GenericAPIView):
 

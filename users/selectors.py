@@ -8,13 +8,13 @@ from rest_framework.authtoken.models import Token
 def getBookings(token: str):
     user = getUserIDFromToken(token)
     unqiue_transactions = list(Ticket.objects.filter(user=user).values("transaction_id").distinct())
-    bookings = {}
+    bookings = []
 
     for transact in unqiue_transactions:
         id = transact['transaction_id']
         ticket_list = Ticket.objects.filter(transaction_id = id)
-        bookings[id] = []
         index = 1
+        bookings.append({id: []})
         for ticket in ticket_list:
             data = {
                 "ticket_number":ticket.ticket_number,
@@ -35,7 +35,7 @@ def getBookings(token: str):
                 "boarding":ticket.boarding.station_name,
                 "destination":ticket.destination.station_name
             }  
-            bookings[id].append({"ticket_id": ticket.ticket_number, "data": data})
+            bookings[id].append({{"ticket_id": ticket.ticket_number, "data": data}})
             index = index + 1
     # for ticket in allBookings:
     #     bookings[ticket.ticket_number] = {
@@ -63,8 +63,9 @@ def getBookings(token: str):
         return {'transactions_count': len(unqiue_transactions), 'bookings': bookings }
 
 
-def getUserData(user: str):
-    user = User.objects.get(pk=user)
+def getUserData(token: str):
+
+    user = User.objects.get(pk=getUserIDFromToken(token))
 
     data = {
         "user_id": user.pk,

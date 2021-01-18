@@ -3,6 +3,8 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from .models import User
 
+class TokenSerializer(serializers.Serializer):
+    token = serializers.CharField(max_length=255)
 
 class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
@@ -22,6 +24,15 @@ class UserSerializer(serializers.ModelSerializer):
             "age",
         ]
        
+class SetUserDataSerializer(serializers.Serializer):
+
+    token = serializers.CharField(max_length=255, required=True)
+    full_name = serializers.CharField(max_length=255, required=False, default=None)
+    email = serializers.EmailField(max_length=255, min_length=None, allow_blank=False, required=False, default=None)
+    phoneNo = serializers.CharField(max_length=15, required=False, default=None)
+    age = serializers.IntegerField(required=False, default=None)
+
+
         
 class LoginSerializer(serializers.Serializer):
 
@@ -32,6 +43,5 @@ class LoginSerializer(serializers.Serializer):
 class UserIDSerializer(serializers.Serializer):
     user = serializers.CharField(max_length=32)
 
-class TokenSerializer(serializers.Serializer):
-    token = serializers.CharField(max_length=100)
+
     
