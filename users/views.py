@@ -53,7 +53,7 @@ class UserLogin(ApiErrorsMixin, GenericAPIView):
         if not user:
             return Response({'error': 'Invalid Credentials'}, status=status.HTTP_409_CONFLICT)
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key, 'user_data': getUserData(user.pk)} , status=status.HTTP_200_OK)
+        return Response({'token': token.key, 'user_data': getUserData(token)} , status=status.HTTP_200_OK)
 
 ##############################################################################################################
 
